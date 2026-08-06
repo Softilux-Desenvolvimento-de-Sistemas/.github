@@ -2,14 +2,14 @@
 
 Sprint de **2 semanas**, de segunda a sexta. Sprint de 1 semana gera cerimônia demais para um time de 5.
 
-Cada sprint é uma [missão](../culture/missions-and-patches.md), com nome, emblema e um objetivo declarado.
+Cada sprint tem [número, nome e um objetivo declarado](../culture/sprints.md).
 
 ## Agenda fixa
 
 | Quando | Ritual | Duração | Quem |
 |---|---|---|---|
 | Todo dia, 9h15 | Daily | 15 min | Time |
-| Todo dia, 9h30 | Triagem | 20 min | Gestor (+ plantonista se preciso) |
+| Todo dia, 9h30 | Triagem | 20 min | Gestor (+ dev se houver dúvida técnica) |
 | Quinta, 14h | Tech sync | 45 min | **Todos, incluindo ILUX** |
 | Segunda (início), 9h30 | Planning | 1h | Time |
 | Sexta (fim), 14h | Review / demo | 45 min | Time + solicitantes |
@@ -42,13 +42,13 @@ O dev do ILUX tem daily própria (com o gestor, assíncrona por texto) — a dai
 
 ## Planning — 1h
 
-Abre a missão.
+Abre a sprint.
 
 1. **Retrospectiva rápida do que sobrou** (5 min) — o que carrega da sprint anterior
-2. **Objetivo da missão** (15 min) — o gestor traz a proposta, o time discute e fecha. Ver critérios em [Missões](../culture/missions-and-patches.md#o-objetivo-da-missão)
-3. **Seleção de tarefas** (25 min) — puxar do Backlog, estimar tamanho, confirmar DoR
-4. **Capacidade e plantonista** (10 min) — quem está de férias, quem é o plantonista, quanto sobra
-5. **Nome da próxima missão** (5 min) — quem está na vez anuncia
+2. **Objetivo da sprint** (15 min) — o gestor traz a proposta, o time discute e fecha. Ver critérios em [Sprints](../culture/sprints.md#o-objetivo-da-sprint)
+3. **Seleção de tarefas** (25 min) — puxar do Backlog e confirmar DoR
+4. **Capacidade** (10 min) — quem está de férias, quanto sobra
+5. **Nome da próxima sprint** (5 min) — quem está na vez anuncia
 
 **Capacidade:** reserve **20%** para imprevisto. Time de 5, sprint de 2 semanas ≈ 50 dias-dev brutos → planeje ~40. Time que planeja 100% da capacidade sempre falha o objetivo, e aí a comemoração nunca acontece.
 
@@ -59,11 +59,9 @@ O que foi feito, mostrado funcionando.
 - **Quem fez, apresenta.** O gestor não demonstra o trabalho dos outros.
 - Demonstração em ambiente real (homologação), não em slide.
 - Solicitantes convidados — é o momento de eles verem o que pediram.
-- Fechamento: o objetivo da missão foi cumprido, renegociado ou não cumprido? Declarado em voz alta.
+- Fechamento: o objetivo da sprint foi cumprido, renegociado ou não cumprido? Declarado em voz alta.
 - Se foi cumprido: comemoração após o expediente ([Recompensas](../culture/rewards.md)).
 - Se caiu por fator externo: **o gestor diz isso explicitamente**, para o time não sair com sensação de fracasso próprio.
-
-Entrega dos emblemas da missão acontece aqui.
 
 ## Retrospectiva — 45 min
 
@@ -107,7 +105,7 @@ Nunca vira status report de tarefa. Isso é a daily.
 
 ---
 
-## Calendário-modelo da missão
+## Calendário-modelo da sprint
 
 ```
 SEMANA 1
@@ -123,7 +121,7 @@ Ter  09:15 Daily | 09:30 Triagem
 Qua  09:15 Daily | 09:30 Triagem
 Qui  09:15 Daily | 09:30 Triagem | 14:00 Tech sync
 Sex  09:15 Daily | 09:30 Triagem | 14:00 Review | 15:00 Retro
-     18:00 Comemoração, se a missão foi cumprida
+     18:00 Comemoração, se a sprint foi cumprida
 ```
 
 Fora dessa agenda, marcar reunião precisa de motivo. O padrão é assíncrono.
@@ -134,7 +132,7 @@ Poucas, e nenhuma delas é meta individual:
 
 | Métrica | O que indica | Como usar |
 |---|---|---|
-| **Lead time** | Tempo de `Backlog` até `Concluída` | Está aumentando? Investigue gargalo |
+| **Lead time** | Tempo de `Backlog` até `Finalizada` | Está aumentando? Investigue gargalo |
 | **Tempo em Code review** | Fila de PR | Passou de 1 dia? Review não está sendo prioridade |
 | **Taxa de retrabalho** | Tarefas que voltam da homologação | Alta? O problema está no DoR, não no dev |
 | **Objetivos cumpridos** | Qualidade do planejamento | Sempre falha? Planejamento otimista. Sempre sobra? Frouxo |

@@ -1,6 +1,6 @@
 # Retrospectiva
 
-45 minutos, sexta de fim de missão. Só o time — sem coordenador, sem diretoria.
+45 minutos, sexta de fim de sprint. Só o time — sem coordenador, sem diretoria.
 
 Facilitação **rotativa** entre os devs. Quando é sempre o gestor que conduz, a retro vira reunião de status e as pessoas param de falar o que importa.
 
@@ -19,7 +19,7 @@ Facilitação **rotativa** entre os devs. Quando é sempre o gestor que conduz, 
 | Tempo | Etapa |
 |---|---|
 | 5 min | Revisar ações da retro anterior — feito? não feito? por quê? |
-| 5 min | Números da missão: objetivo cumprido? lead time? o que entrou fora do plano? |
+| 5 min | Números da sprint: objetivo cumprido? lead time? o que entrou fora do plano? |
 | 10 min | Coleta individual, em silêncio, cada um escrevendo |
 | 15 min | Discussão dos temas agrupados |
 | 8 min | Definir até 2 ações, com dono e prazo |
@@ -55,7 +55,7 @@ Bom para retro em que o time precisa olhar adiante, não só para trás.
 - **Lacked** — faltou
 - **Longed for** — senti falta
 
-Bom depois de missão difícil: dá espaço para o aprendizado sem virar sessão de reclamação.
+Bom depois de sprint difícil: dá espaço para o aprendizado sem virar sessão de reclamação.
 
 ### 4. Linha do tempo
 
@@ -70,11 +70,11 @@ Depois de SEV1/SEV2, use o formato de [postmortem](../engineering/deploy-and-inc
 ## Registro
 
 ```markdown
-# Retro — Missão <número> — <nome> — <data>
+# Retro — SPRINT - <NOME> - <número> — <data>
 
 **Facilitador:**
 **Presentes:**
-**Objetivo da missão:** cumprido / renegociado / não cumprido
+**Objetivo da sprint:** cumprido / renegociado / não cumprido
 
 ## Ações da retro anterior
 | Ação | Dono | Status |

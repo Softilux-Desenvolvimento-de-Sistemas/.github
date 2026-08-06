@@ -33,7 +33,7 @@
 <table>
 <tr>
 <td width="20%" align="center">🧭<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/culture">Cultura</a></b></td>
-<td>Princípios de trabalho, missões e emblemas, recompensas e trilha de carreira</td>
+<td>Princípios de trabalho, sprints, recompensas e trilha de carreira</td>
 </tr>
 <tr>
 <td align="center">🎒<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/onboarding">Onboarding</a></b></td>
@@ -41,7 +41,7 @@
 </tr>
 <tr>
 <td align="center">🔄<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/workflow">Fluxo</a></b></td>
-<td>Ciclo da demanda, sprints e rituais, plantão, padrão de repositório</td>
+<td>Ciclo da demanda, sprints e rituais, padrão de repositório</td>
 </tr>
 <tr>
 <td align="center">⚙️<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/engineering">Engenharia</a></b></td>

@@ -56,7 +56,7 @@ Como o time se comporta, se reconhece e cresce.
 | Página | O que é |
 |---|---|
 | [Manifesto](culture/manifesto.md) | Princípios de trabalho, comunicação e postura |
-| [Missões e emblemas](culture/missions-and-patches.md) | Como funcionam as sprints nomeadas e os patches |
+| [Sprints](culture/sprints.md) | Número, nome, símbolo e objetivo de cada sprint |
 | [Recompensas](culture/rewards.md) | Manto Sagrado, comemorações e reconhecimento |
 | [Trilha de carreira](culture/career-ladder.md) | Matriz Jr → Pl → Sr e como subir de nível |
 
@@ -79,7 +79,6 @@ Como uma demanda vira software em produção.
 |---|---|
 | [Ciclo da demanda](workflow/demand-cycle.md) | Planio, triagem, DoR, DoD |
 | [Sprints e rituais](workflow/sprint-rituals.md) | Agenda fixa, planning, review, retro, tech sync |
-| [Plantonista da sprint](workflow/on-call.md) | Quem absorve urgência e como |
 |  [Padrão de repositório](workflow/repo-standards.md) | Estrutura padrão, README, CODEOWNERS |
 
 ### ⚙️ [Engenharia](engineering/)

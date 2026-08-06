@@ -2,11 +2,10 @@
 
 ## Antes de você chegar (responsabilidade da gestão)
 
-- [ ] Mousepad escolhido pelo dev, comprado e na mesa
+- [ ] Conversa de gosto feita, mousepad comprado e na mesa
 - [ ] Carta de boas-vindas escrita e assinada pelo time
-- [ ] Patch Manto Sagrado separado
 - [ ] Máquina disponível com acesso de administrador
-- [ ] Convites enviados: Planio, GitHub (org), e-mail, canal do time
+- [ ] Convites enviados: Planio, GitHub (org), grupo de WhatsApp, VPN
 - [ ] Buddy definido e avisado
 - [ ] Primeira tarefa já escolhida e no backlog
 
@@ -24,7 +23,7 @@ Se você é o buddy: reserve ~1h/dia da sua primeira semana com essa pessoa. Iss
 
 - [ ] Recepção, mesa, Manto Sagrado, apresentação ao time
 - [ ] Leia o [Manifesto](../culture/manifesto.md) — 10 minutos, é o mais importante desta lista
-- [ ] Leia [Missões e emblemas](../culture/missions-and-patches.md) e [Recompensas](../culture/rewards.md)
+- [ ] Leia [Sprints](../culture/sprints.md) e [Recompensas](../culture/rewards.md)
 - [ ] Todos os acessos criados e testados ([Acessos e ferramentas](access-and-tools.md))
 
 **Tarde**

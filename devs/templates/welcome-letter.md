@@ -1,6 +1,6 @@
 # Carta de boas-vindas
 
-Faz parte do [Manto Sagrado](../culture/rewards.md): a carta que está na mesa no primeiro dia, junto com o mousepad e o patch.
+Faz parte do [Manto Sagrado](../culture/rewards.md): a carta que está na mesa no primeiro dia, junto com o mousepad.
 
 **Escrita à mão. Assinada por todo o time.** Não é e-mail, não é mensagem no canal, não é PDF impresso. O valor dela está inteiro no fato de alguém ter parado 20 minutos para escrever.
 
@@ -15,12 +15,11 @@ Use como ponto de partida, não como texto para copiar. Uma carta que parece for
 
 Bem-vindo(a) ao time.
 
-Você chega na Missão <número> — <nome da missão>. Esse número não reinicia:
-ele conta desde a primeira sprint que a gente rodou, e a partir de hoje conta
-com você junto.
+Você chega na SPRINT - <NOME> - <número>. Esse número não reinicia: ele conta
+desde a primeira sprint que a gente rodou, e a partir de hoje conta com você
+junto.
 
-O mousepad é seu, foi escolhido por você e ninguém mexe. É o Manto Sagrado:
-essa mesa é sua.
+O mousepad é seu e ninguém mexe. Essa mesa é sua.
 
 Três coisas que a gente combina desde já:
 
@@ -69,10 +68,10 @@ Boas-vindas de verdade.
 ## Checklist
 
 - [ ] Buddy definido e avisado com antecedência
-- [ ] Nome da missão atual conferido ([Missões e emblemas](../culture/missions-and-patches.md))
+- [ ] Nome e número da sprint atual conferidos ([Sprints](../culture/sprints.md))
 - [ ] Pelo menos uma frase específica sobre a pessoa
 - [ ] Escrita à mão, em papel decente
 - [ ] Assinada por **todo** o time, incluindo quem é remoto
 - [ ] Na mesa antes de a pessoa chegar ([Primeiro dia](../onboarding/first-day.md))
 
-> Dev remoto: a carta vai pelos Correios junto com o patch, e precisa chegar **antes** do primeiro dia. Combine o endereço na proposta, não na véspera.
+> Dev remoto: a carta vai pelos Correios junto com o mousepad, e precisa chegar **antes** do primeiro dia. Combine o endereço na proposta, não na véspera.
