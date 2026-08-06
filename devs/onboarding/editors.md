@@ -4,6 +4,16 @@ O time não obriga editor. Obriga **resultado**: código formatado pelo Biome, s
 
 Padrão de referência: **VS Code**. Quem preferir Zed, Neovim ou WebStorm segue as mesmas regras de formatação.
 
+## Para baixar
+
+| O quê | Onde |
+|---|---|
+| VS Code | [code.visualstudio.com/download](https://code.visualstudio.com/download) |
+| Zed | [zed.dev/download](https://zed.dev/download) |
+| JetBrains Mono (fonte) | [jetbrains.com/lp/mono](https://www.jetbrains.com/lp/mono/) |
+
+No WSL, instale o VS Code **no Windows**, não dentro do Ubuntu. Ele se conecta à distro pela extensão Remote WSL.
+
 ---
 
 ## VS Code
@@ -27,7 +37,6 @@ Padrão de referência: **VS Code**. Quem preferir Zed, Neovim ou WebStorm segue
 |---|---|---|
 | Pretty TypeScript Errors | `yoavbls.pretty-ts-errors` | Torna erro de tipo legível |
 | Vitest | `vitest.explorer` | Rodar teste pelo editor |
-| REST Client | `humao.rest-client` | Testar API em arquivo `.http` versionado |
 | Path Intellisense | `christian-kohler.path-intellisense` | Autocomplete de import |
 | Conventional Commits | `vivaxy.vscode-conventional-commits` | Ajuda a montar a mensagem no padrão |
 
@@ -43,163 +52,123 @@ Se um projeto legado ainda usa Prettier/ESLint, o `claude.md` e o `README.md` de
 
 ### `settings.json` — base do time
 
-Isto é o que garante o resultado que a página cobra. Não é opcional:
+O que está comentado como "a sua escolha" é gosto pessoal e ninguém revisa. O resto é o que garante o resultado que esta página cobra.
 
-```json
+```jsonc
 {
+  // ─── Aparência ───────────────────────────────────────────
+  "workbench.colorTheme": "Min Dark", // Tema a sua escolha
+  "workbench.iconTheme": "symbols",
+  "workbench.productIconTheme": "fluent-icons", // Ícones a sua escolha
+  "editor.fontFamily": "JetBrains Mono", // Fonte a sua escolha
+  "editor.fontLigatures": true, // liga `=>`, `!==`, `>=` num glifo só
+  "editor.lineHeight": 1.8, // respiro entre linhas; 0 usa o padrão da fonte
+  "editor.renderLineHighlight": "gutter", // destaca a linha atual só na margem
+  "editor.semanticHighlighting.enabled": false, // código mais monocromático — o custo é perder a cor que vem do TS server (tipo vs. valor, import não usado esmaecido)
+
+  // ─── Interface limpa ─────────────────────────────────────
+  // Tudo que é cromo do editor e não é código.
+  "workbench.startupEditor": "none", // abre sem a tela de boas-vindas
+  "workbench.layoutControl.enabled": false, // tira os botões de layout do título
+  "workbench.secondarySideBar.defaultVisibility": "hidden", // a barra da direita abre sozinha em todo workspace desde a 1.104; é onde o chat mora
+  "window.commandCenter": false, // tira a barra de busca do meio do título
+  "window.menuBarVisibility": "compact", // menu vira um botão só
+  "editor.minimap.enabled": false,
+  "editor.scrollbar.vertical": "visible", // sem minimap, a barra vira sua referência de posição
+  "breadcrumbs.enabled": false,
+  "terminal.integrated.stickyScroll.enabled": false,
+
+  // ─── IA e agentes ────────────────────────────────────────
+  // Desliga chat, sugestão inline e extensões do Copilot.
+  // Não afeta a extensão do Claude Code: ela usa view própria.
+  "chat.disableAIFeatures": true,
+  "chat.titleBar.openInAgentsWindow.enabled": false, // tira o atalho de janela de agentes do título
+
+  // ─── Explorer e navegação ────────────────────────────────
+  "explorer.compactFolders": false, // não colapsa `src/app/api` numa linha só — em monorepo atrapalha mais do que economiza
+  "workbench.editor.labelFormat": "short", // aba mostra só o nome do arquivo
+  "explorer.fileNesting.enabled": true, // agrupa arquivo satélite embaixo do principal
+  "explorer.fileNesting.expand": false, // agrupado começa fechado
+  "explorer.fileNesting.patterns": {
+    "package.json": "package-lock.json, .npmrc, .nvmrc, biome.json*, .editorconfig, tsconfig*.json, vitest.config*.ts",
+    ".env": ".env.*",
+    "*.ts": "${capture}.spec.ts, ${capture}.e2e-spec.ts",
+    "docker-compose.yml": "docker-compose.*.yml, Dockerfile*, .dockerignore",
+    "README.md": "CONTRIBUTING.md, CODE_OF_CONDUCT.md, SECURITY.md, LICENSE*"
+  },
+  "symbols.hidesExplorerArrows": false,
+  "symbols.files.associations": {
+    // ícone por sufixo do Nest — dá para ver a camada sem ler o nome inteiro
+    "*.controller.ts": "nest",
+    "*.module.ts": "nest",
+    "*.pipe.ts": "nest",
+    "*.service.ts": "typescript",
+    "*.guard.ts": "typescript",
+    "*.spec.ts": "ts-test",
+    "*.e2e-spec.ts": "ts-test",
+    "vitest.config.e2e.ts": "vite",
+    ".env.example": "gear"
+  },
+
+  // ─── Formatação e lint (Biome) ───────────────────────────
   "editor.defaultFormatter": "biomejs.biome",
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
+    // `explicit` = roda no save, não em cima de qualquer edição
     "quickfix.biome": "explicit",
     "source.organizeImports.biome": "explicit"
   },
-  "editor.rulers": [100],
-  "editor.tabSize": 2,
-  "files.eol": "\n",
+  "files.eol": "\n", // LF sempre, em qualquer plataforma
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-  "files.exclude": {
-    "**/.git": true,
-    "**/node_modules": true,
-    "**/dist": true,
-    "**/.next": true
-  },
+
+  // ─── TypeScript ──────────────────────────────────────────
+  "typescript.tsdk": "node_modules/typescript/lib", // usa o TS do projeto, não o embutido no VS Code
+  "typescript.enablePromptUseWorkspaceTsdk": true, // pergunta ao abrir o projeto; aceite "Use Workspace Version"
+  "js/ts.updateImportsOnFileMove.enabled": "always", // renomear arquivo já conserta os imports
+  "editor.linkedEditing": true, // editar a tag de abertura muda a de fechamento
+
+  // ─── Git ─────────────────────────────────────────────────
+  "git.autofetch": true,
+  "git.confirmSync": false,
+
+  // ─── Busca ───────────────────────────────────────────────
   "search.exclude": {
     "**/node_modules": true,
     "**/dist": true,
     "**/.next": true,
     "**/package-lock.json": true
   },
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "typescript.enablePromptUseWorkspaceTsdk": true,
-  "typescript.preferences.importModuleSpecifier": "non-relative",
-  "js/ts.updateImportsOnFileMove.enabled": "always",
-  "git.autofetch": true,
-  "git.confirmSync": false,
-  "terminal.integrated.defaultProfile.linux": "zsh",
-  "json.schemaDownload.trustedDomains": {
-    "https://json.schemastore.org/": true,
-    "https://www.schemastore.org/": true,
-    "https://json-schema.org/": true,
-    "https://raw.githubusercontent.com/": true,
-    "https://biomejs.dev": true
+
+  // ─── Extensões ───────────────────────────────────────────
+  "[prisma]": {
+    "editor.formatOnSave": true
   },
-  "[typescript]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[typescriptreact]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[javascript]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[json]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[jsonc]": { "editor.defaultFormatter": "biomejs.biome" },
-  "[prisma]": { "editor.defaultFormatter": "prisma.prisma" }
+  "prisma.hidePrisma6Prompts": true,
+  "claudeCode.preferredLocation": "panel",
+
+  // ─── Remote / WSL ────────────────────────────────────────
+  "remote.autoForwardPortsSource": "hybrid", // detecta porta pelo processo e pela saída do terminal
+
+  // ─── Perfis e schemas ────────────────────────────────────
+  "workbench.settings.applyToAllProfiles": [],
+  "window.newWindowProfile": "Default",
+  "json.schemaDownload.trustedDomains": {
+    "https://schemastore.azurewebsites.net/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://www.schemastore.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://json-schema.org/": true,
+    "https://biomejs.dev": true
+  }
 }
 ```
 
-`typescript.tsdk` apontando para o `node_modules` é importante: garante que o editor use a mesma versão de TS do projeto, e não a embutida no VS Code. Ao abrir o projeto, aceite o prompt "Use Workspace Version".
+Três observações que valem de verdade:
 
-> Não use `source.fixAll.eslint` no `codeActionsOnSave`. Em repositório com Biome, isso liga a extensão do ESLint no save e você acaba com duas ferramentas reescrevendo o mesmo arquivo.
-
-### Desligando o ruído de IA e o resto da interface
-
-O VS Code virou um cliente de agente. Cada release recente acrescenta superfície: menu de chat na barra de título, lista de sessões de agente, janela de Agents, browser integrado com anotação de elemento, ditado por voz, sugestão inline e *next edit suggestions* aparecendo enquanto você digita.
-
-Nada disso é proibido. Mas quem usa agente **pelo terminal** — que é como a maioria do time trabalha — está pagando o custo visual de uma coisa que não usa. Os dois caminhos abaixo resolvem.
-
-#### Caminho curto
-
-Um ajuste desliga o pacote inteiro de IA embutida — chat, sugestão inline e as extensões do Copilot:
-
-```json
-{
-  "chat.disableAIFeatures": true
-}
-```
-
-**Isso não afeta a extensão do Claude Code.** Ela registra a própria view (webview em container próprio), não se pluga no chat nativo do VS Code — verificado na v2.1.215. Quem roda o Claude no terminal também não é afetado, obviamente.
-
-Vale como padrão para quem não usa Copilot. Se você usa o autocomplete do Copilot e só quer silêncio no resto, vá pelo caminho granular.
-
-#### Caminho granular
-
-```json
-{
-  // chat e sessões de agente
-  "chat.commandCenter.enabled": false,
-  "chat.viewSessions.enabled": false,
-  "chat.agentHost.enabled": false,
-
-  // browser integrado — as ferramentas que deixam o agente navegar e
-  // ler elementos da página
-  "workbench.browser.enableChatTools": false,
-  "chat.sendElementsToChat.enabled": false,
-
-  // sugestão inline e next edit suggestions
-  "github.copilot.enable": { "*": false },
-  "github.copilot.nextEditSuggestions.enabled": false,
-  "editor.inlineSuggest.enabled": false,
-
-  // voz e ditado
-  "dictation.enabled": false,
-  "accessibility.voice.keywordActivation": "off",
-  "accessibility.voice.autoSynthesize": "off"
-}
-```
-
-`chat.agentSessionsViewLocation` aparece em tutorial antigo, mas a view isolada foi substituída por `chat.viewSessions.*`. Não use a antiga.
-
-#### Interface
-
-```json
-{
-  "workbench.startupEditor": "none",
-  "workbench.layoutControl.enabled": false,
-  "workbench.secondarySideBar.defaultVisibility": "hidden",
-  "window.commandCenter": false,
-  "window.menuBarVisibility": "compact",
-  "editor.minimap.enabled": false,
-  "breadcrumbs.enabled": false,
-  "editor.renderLineHighlight": "gutter",
-  "editor.lineHeight": 1.8,
-  "explorer.compactFolders": false,
-  "workbench.editor.labelFormat": "short",
-  "terminal.integrated.stickyScroll.enabled": false
-}
-```
-
-`workbench.secondarySideBar.defaultVisibility` é o que mais rende: desde a 1.104 a barra lateral direita abre sozinha em todo workspace, e é ali que o chat mora. `"hidden"` resolve.
-
-`explorer.compactFolders: false` parece contraintuitivo num setup enxuto, mas evita o `src/app/api` colapsado numa linha só — em monorepo isso atrapalha mais do que economiza espaço.
-
-#### Preferências pessoais
-
-Tema, fonte e ícone são gosto seu — ninguém revisa isso. Como referência, o setup que boa parte do time usa:
-
-```json
-{
-  "workbench.colorTheme": "Min Dark",
-  "workbench.iconTheme": "symbols",
-  "workbench.productIconTheme": "fluent-icons",
-  "editor.fontFamily": "JetBrains Mono",
-  "editor.fontLigatures": true,
-  "symbols.hidesExplorerArrows": false
-}
-```
-
-Um aviso sobre um ajuste que circula em config de "IDE limpa": `editor.semanticHighlighting.enabled: false` deixa o código mais monocromático, mas você perde a coloração que vem do TS server — a que distingue tipo de valor, parâmetro de variável, e mostra import não usado esmaecido. É bem mais informação do que parece. Se quiser menos cor, prefira um tema de baixo contraste com o semantic ligado.
-
-### Claude Code no VS Code
-
-Se você usa a extensão em vez do terminal puro, o que vale a pena ajustar:
-
-```json
-{
-  "claudeCode.useTerminal": true
-}
-```
-
-Isso abre o Claude no terminal integrado em vez da UI nativa — coerente com quem já trabalha assim e não quer mais um painel.
-
-Duas coisas que aparecem em config copiada por aí e não fazem nada: `claudeCode.selectedModel` não existe no schema da extensão (o modelo se escolhe dentro dela, com `/model`), e `claudeCode.preferredLocation` já vem como `"panel"` e se atualiza sozinho quando você move o painel — declarar não muda nada.
-
-> A versão do VS Code muda rápido e nem todo ajuste acima existe em build antiga. Configuração desconhecida só recebe um aviso no `settings.json` e é ignorada — não quebra nada.
+- **Não use `source.fixAll.eslint` no `codeActionsOnSave`.** Em repositório com Biome, isso liga a extensão do ESLint no save e você acaba com duas ferramentas reescrevendo o mesmo arquivo.
+- **`chat.disableAIFeatures` não afeta o Claude Code.** A extensão registra a própria view e não se pluga no chat nativo do VS Code — verificado na v2.1.215. Quem roda o Claude no terminal também não é afetado. Se você usa o autocomplete do Copilot e quer manter só ele, tire essa linha.
+- **Configuração desconhecida não quebra nada.** O VS Code muda rápido; chave que não existe na sua build recebe um aviso no `settings.json` e é ignorada.
 
 ### `.vscode/extensions.json` no repositório
 
