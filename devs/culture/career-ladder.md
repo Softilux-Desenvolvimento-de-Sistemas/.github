@@ -7,19 +7,9 @@ O objetivo desta página é eliminar a pergunta "o que eu preciso fazer para sub
 - **4 eixos de avaliação**, com peso igual: técnica, autonomia, impacto e colaboração.
 - **3 níveis**: Júnior, Pleno, Sênior.
 - Para subir, você precisa estar **consistentemente** no nível-alvo em **todos os 4 eixos** — não em média. Ser excelente tecnicamente e não colaborar não te promove.
-- "Consistentemente" = sustentado por pelo menos dois ciclos de avaliação (~6 meses).
+- "Consistentemente" quer dizer sustentado ao longo do tempo, não numa entrega isolada. O gestor do setor acompanha isso no 1:1 e sabe quando a conversa de promoção chegou.
 
-## Ciclo de avaliação
-
-| Quando | O quê |
-|---|---|
-| A cada 15 dias | 1:1 — conversa de rota, sem formalidade |
-| A cada 3 meses | Check-in de trilha — onde você está em cada eixo, o que falta |
-| A cada 6 meses | Avaliação formal — decisão de promoção e revisão salarial |
-
-Promoção **nunca é surpresa**. Se você foi promovido, já sabia há pelo menos um ciclo que estava perto. Se não foi, já sabia exatamente o que faltava.
-
-Fora do ciclo, promoção só acontece em caso excepcional e documentado.
+Promoção **nunca é surpresa**. Se você foi promovido, já sabia que estava perto. Se não foi, já sabia exatamente o que faltava.
 
 ---
 
@@ -57,33 +47,6 @@ Fora do ciclo, promoção só acontece em caso excepcional e documentado.
 
 ---
 
-## Sinais de que você está pronto para subir
-
-**Júnior → Pleno**
-- Suas tarefas voltam do review por detalhe, não por estrutura.
-- Você percebe requisito faltando antes de começar.
-- Outra pessoa já te pediu ajuda técnica.
-- Você estima e acerta.
-
-**Pleno → Sênior**
-- Alguém te procura quando o problema é difícil, e você é a última parada.
-- Você já mudou a opinião técnica do time com argumento, não com cargo.
-- Sua ausência de uma semana é sentida em decisão, não só em entrega.
-- Você já documentou algo que reduziu dependência de você mesmo.
-
-## O que **não** conta para promoção
-
-- Tempo de casa isoladamente.
-- Volume de commits ou linhas de código.
-- Horas extras.
-- Ser "o único que sabe mexer no sistema X" — isso é passivo, não senioridade. Senioridade é acabar com esse gargalo.
-
 ## Nota sobre especialistas
 
 Nem todo sênior quer virar líder. A trilha acima é técnica do começo ao fim — nenhum dos critérios exige gestão de pessoas. Quem quiser seguir para liderança conversa no 1:1; é uma mudança de trilha, não um degrau acima.
-
-## Remuneração
-
-Esta página descreve **o que se espera de cada nível e como se sobe** — que é o que dá para escrever e cobrar publicamente.
-
-Faixa salarial, revisão e efetivação da promoção são conversa de 1:1 com o responsável da equipe. Se você está num processo de promoção, a faixa do nível de destino é informação sua: peça.
