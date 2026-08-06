@@ -68,7 +68,7 @@ Funciona porque não diz não, registra a demanda e move a decisão de prioridad
 - Autenticação por chave SSH ([setup](dev-environment.md#chave-ssh-para-o-github)).
 - 2FA obrigatório na organização.
 - Seu usuário deve ter nome real e foto — review anônimo é ruim de ler.
-- Times por produto, com `CODEOWNERS` apontando para eles.
+- Quem revisa PR de um produto são os sêniors daquele projeto ([Code review](../engineering/code-review.md)).
 
 **Ninguém tem push direto em `main`. Inclusive o gestor.** Tudo entra por PR aprovado.
 

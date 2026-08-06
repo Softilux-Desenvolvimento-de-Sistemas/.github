@@ -165,7 +165,6 @@ Reverter não é vergonha. Deixar a `main` quebrada por meio dia é.
 - [ ] Branch protection com os três como status checks obrigatórios
 - [ ] `dependabot.yml`
 - [ ] `pull_request_template.md`
-- [ ] `CODEOWNERS`
 - [ ] Environment `production` com required reviewer
 - [ ] Secrets configurados
 - [ ] Deploy automático em homologação funcionando

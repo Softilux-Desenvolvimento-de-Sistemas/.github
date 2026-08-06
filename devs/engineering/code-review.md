@@ -17,8 +17,7 @@ Se você não vai conseguir revisar no prazo, diga no canal para outra pessoa pe
 ## Quem revisa
 
 - 1 aprovação é o mínimo
-- `CODEOWNERS` sugere automaticamente
-- Migration, pipeline e mudança de infra pedem review de sênior
+- Quem revisa é um **sênior do projeto**. Migration, pipeline e mudança de infra, sempre
 - Ninguém pegou o PR? Cobre no grupo. Persistindo, o gestor designa o revisor — PR parado por falta de dono é problema do time, não de quem abriu
 - Júnior pode e deve revisar PR de sênior. Aprender a ler código dos outros é metade da senioridade
 

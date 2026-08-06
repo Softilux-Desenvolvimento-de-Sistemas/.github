@@ -16,7 +16,6 @@ Quando isso não acontece, o README está incompleto — não o dev.
 | `biome.json` | Configuração de lint e formatação |
 | `docker-compose.yml` | Serviços locais (banco, cache, etc.) |
 | `.github/workflows/ci.yml` | Pipeline ([CI/CD](../engineering/ci-cd.md)) |
-| `.github/CODEOWNERS` | Revisor automático |
 | `.vscode/extensions.json` | Extensões recomendadas |
 | `docs/adr/` | [Decisões de arquitetura](../templates/adr-template.md) |
 
@@ -58,19 +57,11 @@ npm run dev
 
 > A seção **"Particularidades e armadilhas"** é a mais valiosa do README. É onde mora o conhecimento que hoje só existe na cabeça de uma pessoa. Sempre que você descobrir algo do tipo depois de perder duas horas, escreva ali — foi exatamente por não estar escrito que você perdeu as duas horas.
 
-## CODEOWNERS
+## Quem revisa
 
-Define quem é revisor automático de cada área. Deixa a ownership explícita sem burocracia:
+Não usamos `CODEOWNERS`. **Quem avalia o PR são os sêniors do projeto** — quem conhece o produto de perto, não uma regra de caminho de arquivo.
 
-```
-# .github/CODEOWNERS
-*                       @org/team-devs
-/src/billing/           @org/team-billing
-/prisma/                @org/team-seniors
-/.github/workflows/     @org/team-seniors
-```
-
-Migration e pipeline pedindo review de sênior por padrão é barato e evita a maior parte dos incidentes graves.
+Migration, pipeline e mudança de infra passam por sênior sempre. Detalhes em [Code review](../engineering/code-review.md).
 
 ## Rigor por criticidade
 
@@ -100,7 +91,6 @@ O mapa de quais produtos existem, quem é owner e onde cada um roda fica nos can
 - [ ] `ci.yml` com lint, test e build
 - [ ] Branch protection com os três como status checks obrigatórios
 - [ ] `dependabot.yml`
-- [ ] `CODEOWNERS`
 - [ ] Environment `production` com required reviewer
 - [ ] Criticidade definida
 

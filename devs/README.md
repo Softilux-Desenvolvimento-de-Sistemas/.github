@@ -79,7 +79,7 @@ Como uma demanda vira software em produção.
 |---|---|
 | [Ciclo da demanda](workflow/demand-cycle.md) | Planio, triagem, DoR, DoD |
 | [Sprints e rituais](workflow/sprint-rituals.md) | Agenda fixa, planning, review, retro, tech sync |
-|  [Padrão de repositório](workflow/repo-standards.md) | Estrutura padrão, README, CODEOWNERS |
+| [Padrão de repositório](workflow/repo-standards.md) | Estrutura padrão, README, criticidade |
 
 ### ⚙️ [Engenharia](engineering/)
 
