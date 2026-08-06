@@ -4,8 +4,9 @@
 
 | Ferramenta | Para que serve | O que **não** fazer nela |
 |---|---|---|
-| **Planio** | Fonte da verdade de demanda: o quê, por quê, para quem, prazo | Discussão técnica profunda, revisão de código |
-| **GitHub** | Código, PR, review, CI, ADR e este handbook | Registrar prioridade de negócio |
+| **[Planio](https://softilux.planio.com)** | Fonte da verdade de demanda: o quê, por quê, para quem, prazo | Discussão técnica profunda, revisão de código |
+| **[GitHub](https://github.com/Softilux-Desenvolvimento-de-Sistemas)** | Código, PR, review, CI, ADR e este handbook | Registrar prioridade de negócio |
+| **[Grafana](https://status.prodb.com.br/login)** | Monitoramento e status dos ambientes ([Deploy e incidentes](../engineering/deploy-and-incidents.md#monitoramento)) | — |
 | **Grupo de WhatsApp** | Conversa do dia, bloqueio, aviso rápido | Decisão que não fica registrada em lugar nenhum, e qualquer credencial |
 | **Obsidian** | As senhas e credenciais que você usa no trabalho | Compartilhar credencial com colega |
 | **VPN** | Acesso à rede interna | — |
