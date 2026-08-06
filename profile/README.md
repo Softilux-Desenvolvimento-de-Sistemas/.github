@@ -46,7 +46,7 @@
 </tr>
 <tr>
 <td align="center">📋<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/templates">Templates</a></b></td>
-<td>Pull request, retrospectiva, ADR, carta de boas-vindas</td>
+<td>Pull request, retrospectiva e ADR</td>
 </tr>
 </table>
 

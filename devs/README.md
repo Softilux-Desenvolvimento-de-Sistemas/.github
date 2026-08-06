@@ -100,7 +100,6 @@ Modelos prontos para copiar.
 | Página | O que é |
 |---|---|
 | [Pull request](templates/pull-request-template.md) | Template de PR |
-| [Carta de boas-vindas](templates/welcome-letter.md) | Modelo da carta do Manto Sagrado |
 | [Retrospectiva](templates/retro-template.md) | Roteiro da retro |
 | [ADR](templates/adr-template.md) | Registro de decisão de arquitetura |
 

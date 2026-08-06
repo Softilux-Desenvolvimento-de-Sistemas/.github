@@ -4,12 +4,9 @@ Nada aqui substitui salário justo. Isso é o simbólico — e o simbólico só 
 
 ## Manto Sagrado
 
-Todo dev que entra no time recebe, **no primeiro dia**:
+Todo dev que entra no time recebe o **Manto Sagrado** no primeiro dia: já na mesa, esperando por ele, quando chega.
 
-1. **Mousepad** — já na mesa quando ele chega.
-2. **Carta de boas-vindas** — escrita à mão, assinada pelo time. Modelo em [Carta de boas-vindas](../templates/welcome-letter.md).
-
-**Como o mousepad é escolhido:** o dev não escolhe. Antes da chegada, a gestão faz uma conversa rápida com ele com algumas perguntas sobre gosto — o que curte, o que não curte, o que tem cara dele. O tamanho é padronizado, então com o gosto na mão fica fácil achar. A graça está em ele encontrar a coisa pronta na mesa, não em preencher um formulário de pedido.
+**Como o Manto Sagrado é escolhido:** o dev não escolhe. Antes da chegada, a gestão faz uma conversa rápida com ele com algumas perguntas sobre gosto — o que curte, o que não curte, o que tem cara dele. O tamanho é padronizado, então com o gosto na mão fica fácil achar. A graça está em ele encontrar a coisa pronta na mesa, não em preencher um formulário de pedido.
 
 **Retroativo:** quem já estava no time antes desta política também recebe. Não faz sentido criar um ritual de pertencimento que exclui justamente quem construiu o time.
 
