@@ -141,21 +141,6 @@ Modelos prontos para copiar.
 
 ---
 
-## 📞 Contatos rápidos
-
-| Preciso de… | Onde |
-|---|---|
-| Prioridade, escopo, 1:1 | Responsável da equipe |
-| Acesso, credencial, ambiente | Responsável do setor · [suporte@prodb.com.br](mailto:suporte@prodb.com.br) |
-| Abrir ou acompanhar uma demanda | [Planio](https://softilux.planio.com) |
-| Monitoramento e status | [Grafana](https://status.prodb.com.br/login) |
-| Destravar de um problema técnico | Canal do time — [regra dos 45 minutos](culture/manifesto.md#2-bloqueio-é-assunto-do-time-não-seu) |
-| Falha de segurança | Não use canal aberto — ver [SECURITY.md](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/SECURITY.md) |
-
-> Este repositório é público, então aqui ficam **papéis**, não nomes. Seu buddy te apresenta a todo mundo na primeira semana.
-
----
-
 ## 📐 Convenções deste handbook
 
 - `<!-- PREENCHER -->` marca informação que ainda falta. **Se você sabe a resposta, preencha.**
