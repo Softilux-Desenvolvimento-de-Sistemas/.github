@@ -14,6 +14,20 @@
 
 A regra não é superstição: é ter gente acordada e disponível quando o problema aparecer. Ninguém quer descobrir o bug no sábado de manhã.
 
+### Atualização que exige parar a produção
+
+Migration pesada, troca de infra, versão que derruba o sistema durante a subida — **nada disso sobe em horário de expediente.** Com o cliente trabalhando, uma janela de indisponibilidade de 20 minutos custa mais que a madrugada inteira de quem subiu.
+
+Esse tipo de deploy é feito **fora do expediente, em plantão combinado**:
+
+- **Combinado com antecedência**, não no mesmo dia. Quem participa sabe com dias de folga.
+- **Escalado entre os devs que vão participar** — quem conhece a mudança e quem consegue reverter. Não é o time inteiro acordado sem função.
+- **Papéis definidos antes de começar**: quem executa, quem confere, quem aciona o resto se der errado.
+- **Plano de rollback testado**, não imaginado. Fora do expediente não há a quem perguntar.
+- **O cliente é avisado** da janela de indisponibilidade antes, não durante.
+
+Quem entra em plantão de deploy compensa as horas. Subir de madrugada é trabalho, não favor — e time que trata isso como favor para de se voluntariar na terceira vez.
+
 ### Antes de subir
 
 - [ ] CI verde na `main`
