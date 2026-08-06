@@ -11,8 +11,7 @@ A triagem é esse filtro. **Nenhuma demanda vai direto do solicitante para o dev
 ## Estados no Planio
 
 ```
-Nova → Analisar → Backlog → Em desenvolvimento
-     → Desenv. finalizado → Em teste → Finalizada
+Nova → Analisar → Backlog → Em desenvolvimento → Desenv. finalizado → Em teste → Finalizada
 ```
 
 Estado lateral: `Stand by`.
