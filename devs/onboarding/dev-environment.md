@@ -104,9 +104,9 @@ Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm
 
 O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
 
-`npm` é o padrão do time. Só use outro gerenciador em repositório que já tenha o lock correspondente (`pnpm-lock.yaml`, `yarn.lock`) e ainda não tenha migrado.
+`npm` é o padrão do time, em todos os repositórios. Não existe projeto nosso em pnpm ou yarn.
 
-> Nunca misture gerenciadores no mesmo repositório. Se existe `package-lock.json`, é npm. Rodar `pnpm install` ali gera um lock conflitante — se acontecer, apague o lock errado e não commite.
+> Nunca rode outro gerenciador num repositório nosso. `pnpm install` ou `yarn` geram um lock paralelo ao `package-lock.json`, e aí duas pessoas passam a instalar árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
 
 ## 8. Docker
 
@@ -193,9 +193,9 @@ Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm
 
 O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
 
-`npm` é o padrão do time. Só use outro gerenciador em repositório que já tenha o lock correspondente (`pnpm-lock.yaml`, `yarn.lock`) e ainda não tenha migrado.
+`npm` é o padrão do time, em todos os repositórios. Não existe projeto nosso em pnpm ou yarn.
 
-> Nunca misture gerenciadores no mesmo repositório. Se existe `package-lock.json`, é npm. Rodar `pnpm install` ali gera um lock conflitante — se acontecer, apague o lock errado e não commite.
+> Nunca rode outro gerenciador num repositório nosso. `pnpm install` ou `yarn` geram um lock paralelo ao `package-lock.json`, e aí duas pessoas passam a instalar árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
 
 ## 5. Docker
 
