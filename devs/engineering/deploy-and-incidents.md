@@ -40,7 +40,7 @@ O ponto onde mais se erra feio.
 - [ ] Aplicação responde
 - [ ] Fluxo alterado testado **em produção**, não só em homologação
 - [ ] Log limpo nos primeiros 15 minutos
-- [ ] Tarefa do Planio movida para `Concluída`
+- [ ] Tarefa do Planio movida para `Finalizada`
 - [ ] Time avisado no canal
 
 Deploy sem conferência não é deploy, é aposta.
