@@ -5,7 +5,7 @@ Do primeiro dia até a máquina rodando. Comece por **Primeiro dia** e siga a or
 | Página | O que é |
 |---|---|
 | [Primeiro dia](first-day.md) | Checklist de chegada |
-| [Ambiente de desenvolvimento](dev-environment.md) | WSL, macOS, Node, pnpm, Docker, banco |
+| [Ambiente de desenvolvimento](dev-environment.md) | WSL, macOS, Node, npm, Docker, banco |
 | [Editores](editors.md) | Configuração padrão de VS Code e Zed |
 | [Acessos e ferramentas](access-and-tools.md) | Planio, GitHub, ambientes, credenciais |
 

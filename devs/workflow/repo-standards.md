@@ -31,23 +31,23 @@ Quando isso não acontece, o README está incompleto — não o dev.
 <uma frase do que é>
 
 ## Requisitos
-Node <versão> · pnpm · Docker
+Node <versão> · npm · Docker
 
 ## Setup
 ```bash
-pnpm install
+npm ci
 cp .env.example .env
 docker compose up -d
-pnpm db:migrate
-pnpm dev
+npm run db:migrate
+npm run dev
 ```
 
 ## Scripts
 | Comando | O que faz |
 |---|---|
-| `pnpm dev` | |
-| `pnpm test` | |
-| `pnpm build` | |
+| `npm run dev` | |
+| `npm test` | |
+| `npm run build` | |
 
 ## Deploy
 <como sobe, quem pode subir, como reverter>

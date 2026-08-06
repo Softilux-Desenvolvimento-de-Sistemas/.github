@@ -57,7 +57,7 @@ chore(deps): bump prisma to 6.2
 | Código em inglês, documentação em português | Sem `calcularTotalOrder` |
 | Arquivos em `kebab-case` | `invoice-repository.ts` |
 | `any` é proibido | Use `unknown` e faça o narrowing |
-| Formatação é do Biome | `pnpm biome check --write` |
+| Formatação é do Biome | `npx biome check --write` |
 | Toda entrada externa é validada | Zod ou class-validator |
 
 📖 [Padrões de código](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-standards.md)
@@ -67,7 +67,7 @@ chore(deps): bump prisma to 6.2
 Todo `fix` nasce com um teste que falha antes e passa depois. Regra de negócio sempre tem teste.
 
 ```bash
-pnpm test:run
+npm run test:run
 ```
 
 📖 [Testes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/testing.md)

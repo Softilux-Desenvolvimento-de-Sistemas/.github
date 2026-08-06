@@ -26,14 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm biome ci .
-      - run: pnpm tsc --noEmit
+          cache: npm
+      - run: npm ci
+      - run: npx biome ci .
+      - run: npx tsc --noEmit
 
   test:
     runs-on: ubuntu-latest
@@ -54,34 +53,32 @@ jobs:
       DATABASE_URL: postgresql://test:test@localhost:5432/test
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm db:migrate:deploy
-      - run: pnpm test:run
+          cache: npm
+      - run: npm ci
+      - run: npm run db:migrate:deploy
+      - run: npm run test:run
 
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version-file: .nvmrc
-          cache: pnpm
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm build
+          cache: npm
+      - run: npm ci
+      - run: npm run build
 ```
 
 **Detalhes que importam:**
 
 - `concurrency` com `cancel-in-progress`: push novo cancela a execução anterior. Economia real de tempo de fila
-- `--frozen-lockfile`: falha se o lock estiver dessincronizado do `package.json`. É o que impede "na minha máquina funciona"
+- `npm ci`: instala exatamente o que está no `package-lock.json` e falha se ele estiver dessincronizado do `package.json`. É o que impede "na minha máquina funciona". Nunca use `npm install` no CI — ele reescreve o lock
 - `node-version-file: .nvmrc`: uma única fonte de verdade para a versão do Node
-- `cache: pnpm`: sem isso o install domina o tempo do pipeline
+- `cache: npm`: sem isso o install domina o tempo do pipeline
 - `tsc --noEmit` no job de lint: erro de tipo tem que reprovar o PR
 
 Esses três jobs são os **status checks obrigatórios** na branch protection ([Git e GitHub](git-and-github.md#branch-protection-em-main)).

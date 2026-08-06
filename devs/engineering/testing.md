@@ -19,9 +19,9 @@ Teste aqui não é meta de cobertura nem ritual de qualidade. É o que permite m
 Scripts padronizados em todo repositório:
 
 ```bash
-pnpm test          # watch, uso local
-pnpm test:run      # execução única, é o que o CI roda
-pnpm test:cov      # relatório de cobertura
+npm test               # watch, uso local
+npm run test:run       # execução única, é o que o CI roda
+npm run test:cov       # relatório de cobertura
 ```
 
 ---
@@ -216,7 +216,7 @@ Se um número ajuda a calibrar: regra de negócio tende a ficar acima de 80% nat
 
 ## No dia a dia
 
-- Rode `pnpm test` em watch enquanto desenvolve. Feedback de 2 segundos muda como você escreve código
-- Antes de abrir o PR: `pnpm test:run` local. Deixar o CI descobrir é desperdício de fila
+- Rode `npm test` em watch enquanto desenvolve. Feedback de 2 segundos muda como você escreve código
+- Antes de abrir o PR: `npm run test:run` local. Deixar o CI descobrir é desperdício de fila
 - Correção de bug: escreva o teste que falha **primeiro**. É a única forma de saber que o teste realmente pega aquele bug
 - Revisando PR: "tem teste cobrindo isso?" é pergunta legítima, e é item do [code review](code-review.md) e da [DoD](../workflow/demand-cycle.md#definition-of-done-dod)

@@ -67,7 +67,7 @@ Do primeiro dia até a máquina rodando.
 | Página | O que é |
 |---|---|
 | [Primeiro dia](onboarding/first-day.md) | Checklist de chegada |
-| [Ambiente de desenvolvimento](onboarding/dev-environment.md) | WSL, macOS, Node, pnpm, Docker, banco |
+| [Ambiente de desenvolvimento](onboarding/dev-environment.md) | WSL, macOS, Node, npm, Docker, banco |
 | [Editores](onboarding/editors.md) | Configuração padrão de VS Code e Zed |
 | [Acessos e ferramentas](onboarding/access-and-tools.md) | Planio, GitHub, ambientes, credenciais |
 

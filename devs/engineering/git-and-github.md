@@ -172,7 +172,7 @@ git push -u origin hotfix/1299-payment-timeout
 |---|---|
 | Commitou na `main` local | `git reset --soft HEAD~1`, cria a branch, commita nela |
 | Commitou segredo | **Avise imediatamente.** A credencial precisa ser rotacionada — remover do histórico não basta |
-| Conflito no lock file | `git checkout main -- pnpm-lock.yaml && pnpm install` |
+| Conflito no lock file | `git checkout main -- package-lock.json && npm install` |
 | Precisa desfazer merge já na `main` | `git revert -m 1 <sha>` via PR. Nunca reescreva histórico da `main` |
 | Branch muito atrás da `main` | `git fetch && git rebase origin/main`, resolve, `git push --force-with-lease` (só na sua branch) |
 

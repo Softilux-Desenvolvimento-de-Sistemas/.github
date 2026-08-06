@@ -25,7 +25,7 @@ Nunca `CreateUser.ts`, `userTable.tsx` ou `Invoice_Repository.ts`. Case-insensit
 
 ## Formatação
 
-**Biome**, sem discussão. `pnpm biome check --write` resolve. O CI reprova o que estiver fora.
+**Biome**, sem discussão. `npx biome check --write` resolve. O CI reprova o que estiver fora.
 
 Não existe review sobre estilo — se você está comentando aspas ou indentação num PR, pare.
 
