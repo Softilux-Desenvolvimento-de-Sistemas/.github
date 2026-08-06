@@ -88,15 +88,18 @@ O instalador já acrescenta ao seu `~/.zshrc` (ou `~/.bashrc`):
 ```bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 ```
 
 Reabra o terminal e instale as versões que usamos:
 
 ```bash
+nvm install 24
 nvm install 22
-nvm install 20
-nvm alias default 22
+nvm alias default 24
 ```
+
+A 24 é a LTS ativa e é o nosso default; a 22 fica instalada porque ainda há projeto nela. **A 20 saiu de suporte em abril de 2026** — se algum `.nvmrc` ainda aponta para ela, isso é dívida a resolver, não versão a instalar.
 
 Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm use` dentro da pasta do projeto já seleciona a versão certa. Para trocar automaticamente ao entrar na pasta, veja [troca automática de versão](#troca-automática-de-versão-opcional).
 
@@ -110,18 +113,32 @@ O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
 
 ## 8. Docker
 
-Duas opções:
+Duas opções. **Docker Desktop é a recomendada** — cuida do daemon sozinho e é menos coisa para dar errado.
 
-**Docker Desktop no Windows** (recomendado) com a integração WSL ativada: Settings → Resources → WSL Integration → habilite a sua distro.
+**Docker Desktop no Windows**, com a integração WSL ativada: Settings → Resources → WSL Integration → habilite a sua distro. Nada a instalar dentro do Ubuntu; o comando `docker` já aparece lá.
 
-**Engine direto no Ubuntu**, sem Docker Desktop:
+**Engine direto no Ubuntu**, sem Docker Desktop. Aqui a ordem importa, porque o daemon precisa de systemd — e no WSL o systemd não vem ligado por padrão.
+
+Primeiro habilite o systemd. Dentro do Ubuntu, em `/etc/wsl.conf`:
+
+```ini
+[boot]
+systemd=true
+```
+
+Rode `wsl --shutdown` no PowerShell e reabra o Ubuntu. Confirme com `ps -p 1 -o comm=` — precisa responder `systemd`.
+
+Depois instale o engine:
 
 ```bash
-curl -fsSL https://get.docker.com | sh
+curl -fsSL https://get.docker.com -o get-docker.sh
+sudo sh get-docker.sh
 sudo usermod -aG docker $USER
 ```
 
-Reabra o terminal e teste: `docker run hello-world`.
+Rode `wsl --shutdown` de novo para o grupo `docker` valer — no WSL, só reabrir o terminal não basta. Teste com `docker run hello-world`.
+
+> O script do `get.docker.com` é o caminho de conveniência e serve bem para máquina de desenvolvimento. A própria Docker não o recomenda para servidor: lá vale o [repositório apt oficial](https://docs.docker.com/engine/install/ubuntu/).
 
 Bancos locais sobem sempre por Docker, nunca instalados na máquina. Cada repositório traz seu `docker-compose.yml`.
 
@@ -177,15 +194,18 @@ O instalador já acrescenta ao seu `~/.zshrc`:
 ```bash
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 ```
 
 Reabra o terminal e instale as versões que usamos:
 
 ```bash
+nvm install 24
 nvm install 22
-nvm install 20
-nvm alias default 22
+nvm alias default 24
 ```
+
+A 24 é a LTS ativa e é o nosso default; a 22 fica instalada porque ainda há projeto nela. **A 20 saiu de suporte em abril de 2026** — se algum `.nvmrc` ainda aponta para ela, isso é dívida a resolver, não versão a instalar.
 
 Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm use` dentro da pasta do projeto já seleciona a versão certa. Para trocar automaticamente ao entrar na pasta, veja [troca automática de versão](#troca-automática-de-versão-opcional).
 
@@ -200,8 +220,10 @@ O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
 ## 5. Docker
 
 ```bash
-brew install --cask docker
+brew install --cask docker-desktop
 ```
+
+O cask se chamava `docker` e foi renomeado — `brew install --cask docker` não resolve mais. Hoje `brew install docker` (sem `--cask`) instala só o CLI, sem o daemon, e o `docker` fica sem responder.
 
 Abra o Docker Desktop uma vez para ele terminar a configuração e teste: `docker run hello-world`.
 
@@ -324,7 +346,9 @@ Se algum passo falhar, **primeiro** cheque o `README.md` do repositório — ele
 | Porta já em uso | Container antigo de outro projeto | `docker ps` e `docker compose down` no projeto anterior |
 | Migration falha ao subir do zero | Volume do banco com estado antigo | `docker compose down -v` e subir de novo |
 | Lock file com conflito gigante | Merge do lock | Não resolva à mão: `git checkout main -- package-lock.json && npm install` |
-| Docker não responde no WSL | Integração desabilitada | Docker Desktop → Resources → WSL Integration |
+| Docker não responde no WSL (Docker Desktop) | Integração desabilitada | Docker Desktop → Resources → WSL Integration |
+| `Cannot connect to the Docker daemon` no WSL (engine direto) | systemd desligado na distro | `[boot] systemd=true` no `/etc/wsl.conf` e `wsl --shutdown` |
+| `permission denied` no socket do Docker | Grupo `docker` ainda não valeu na sessão | `wsl --shutdown` (reabrir o terminal não basta) |
 | `nvm: command not found` após instalar | Terminal não recarregou o `~/.zshrc` | Fechar e reabrir o terminal, ou `source ~/.zshrc` |
 
 # Padrão de organização local
