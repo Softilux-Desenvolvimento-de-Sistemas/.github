@@ -90,7 +90,7 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 | [Git e GitHub](engineering/git-and-github.md) | Estratégia de branch, commits, proteções |
 | [Code review](engineering/code-review.md) | SLA, o que olhar, como criticar |
 | [Testes](engineering/testing.md) | Vitest, o que testar, cobertura |
-| [CI/CD](engineering/ci-cd.md) | GitHub Actions, pipelines, ambientes |
+| [CI/CD](engineering/ci-cd.md) 🚧 | GitHub Actions, pipelines, ambientes — **em construção** |
 | [Deploy e incidentes](engineering/deploy-and-incidents.md) | Como subir e o que fazer quando cai |
 
 ### 📋 [Templates](templates/)
