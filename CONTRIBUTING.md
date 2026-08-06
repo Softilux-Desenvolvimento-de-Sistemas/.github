@@ -60,8 +60,6 @@ chore(deps): bump prisma to 6.2
 | Formatação é do Biome | `npx biome check --write` |
 | Toda entrada externa é validada | Zod ou class-validator |
 
-📖 [Padrões de código](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-standards.md)
-
 ## Testes
 
 Todo `fix` nasce com um teste que falha antes e passa depois. Regra de negócio sempre tem teste.

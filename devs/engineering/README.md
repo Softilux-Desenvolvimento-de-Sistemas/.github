@@ -6,7 +6,6 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 |---|---|
 | [Git e GitHub](git-and-github.md) | Estratégia de branch, commits, proteções |
 | [Code review](code-review.md) | SLA, o que olhar, como criticar |
-| [Padrões de código](code-standards.md) | Convenções de TS, React, NestJS, banco |
 | [Testes](testing.md) | Vitest, o que testar, cobertura |
 | [CI/CD](ci-cd.md) | GitHub Actions, pipelines, ambientes |
 | [Deploy e incidentes](deploy-and-incidents.md) | Como subir e o que fazer quando cai |

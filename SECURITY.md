@@ -59,9 +59,9 @@ Isso não é motivo de bronca. Erro é insumo, não culpa — errar em silêncio
 |---|---|
 | Segredo em GitHub Secrets, nunca no YAML ou no código | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md#segredos) |
 | `.env` fora do versionamento; só `.env.example` sem valores | [Padrão de repositório](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/workflow/repo-standards.md) |
-| Entrada externa validada por schema antes de chegar ao banco | [Padrões de código](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-standards.md) |
+| Entrada externa validada por schema antes de chegar ao banco | Zod ou class-validator, sempre na borda |
 | Autorização checada, não só autenticação | [Code review](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-review.md) |
-| Nunca vazar stack trace ou erro de banco para o cliente | [Padrões de código](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-standards.md#tratamento-de-erro) |
+| Nunca vazar stack trace ou erro de banco para o cliente | Mensagem genérica para o cliente, detalhe só no log |
 | `permissions: contents: read` no topo do workflow | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
 | Action de terceiro com acesso a segredo fixada por SHA | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
 | Dependabot ativo, atualização entra como `chore` na sprint | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |

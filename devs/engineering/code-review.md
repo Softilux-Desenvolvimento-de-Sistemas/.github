@@ -50,7 +50,7 @@ Ordem que funciona:
 - Paginação onde a lista pode crescer
 
 **Manutenção**
-- Segue os [padrões de código](code-standards.md)?
+- Segue as convenções do `claude.md` do repositório?
 - Nome diz o que a coisa faz?
 - Abstração criada na primeira repetição? (não abstraia ainda)
 - Teste cobrindo o comportamento novo? ([Testes](testing.md))

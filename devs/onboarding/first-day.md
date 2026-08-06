@@ -45,7 +45,7 @@ Se você é o buddy: reserve ~1h/dia da sua primeira semana com essa pessoa. Iss
 ## Primeira semana
 
 - [ ] Abrir o primeiro PR, mesmo que minúsculo. Passar pelo fluxo inteiro é o objetivo, não o tamanho da entrega.
-- [ ] Ler [Padrões de código](../engineering/code-standards.md) e [Code review](../engineering/code-review.md)
+- [ ] Ler [Code review](../engineering/code-review.md)
 - [ ] Participar de todos os rituais ([Sprints e rituais](../workflow/sprint-rituals.md))
 - [ ] Fazer review em PR de outra pessoa (mesmo que só perguntando)
 - [ ] 1:1 com o gestor na sexta
