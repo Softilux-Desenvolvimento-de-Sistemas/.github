@@ -6,7 +6,6 @@ Como uma demanda vira software em produção — da triagem ao deploy conferido.
 |---|---|
 | [Ciclo da demanda](demand-cycle.md) | Planio, triagem, DoR, DoD |
 | [Sprints e rituais](sprint-rituals.md) | Agenda fixa, planning, review, retro, tech sync |
-| [Plantonista da sprint](on-call.md) | Quem absorve urgência e como |
 | [Padrão de repositório](repo-standards.md) | Estrutura padrão, README, CODEOWNERS |
 
 > [!IMPORTANT]

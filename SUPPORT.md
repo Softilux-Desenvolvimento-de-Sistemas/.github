@@ -14,7 +14,7 @@
 | Acesso, conta ou permissão | [Acessos e ferramentas](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/onboarding/access-and-tools.md) |
 | Saber como um produto sobe | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
 | Prioridade da minha semana | Gestor, sempre |
-| Produção caiu | [Deploy e incidentes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy-and-incidents.md) → plantonista da sprint |
+| Produção caiu | [Deploy e incidentes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy-and-incidents.md) — avise no grupo, a equipe se junta |
 
 > [!TIP]
 > **A regra dos 45 minutos:** travado no mesmo problema por 45 minutos sem progresso? Chame no canal do time. Ninguém vai achar ruim. O que gera problema é o dev que passou dois dias travado e só contou na daily de quinta.
@@ -42,7 +42,7 @@ Para o pedido andar rápido, inclua:
 
 ### É urgente de verdade?
 
-Urgência é: produção caiu, cliente parado, prazo legal. Nesse caso vai direto para o plantonista da sprint — mas a tarefa é criada no Planio **mesmo assim**.
+Urgência é: produção caiu, cliente parado, prazo legal. Nesse caso a equipe se junta para resolver o quanto antes — mas a tarefa é criada no Planio **mesmo assim**.
 
 Não é urgência: "o diretor perguntou", "é rapidinho", "só mudar uma coisinha".
 
