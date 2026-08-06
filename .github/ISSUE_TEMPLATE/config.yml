@@ -1,0 +1,18 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: 📋 Abrir uma demanda (Planio)
+    url: https://softilux.planio.com
+    about: Todo pedido de negócio, funcionalidade ou correção solicitada por outra área entra pelo Planio — não por issue. Você recebe resposta da triagem no mesmo dia útil.
+
+  - name: 🔒 Reportar uma falha de segurança
+    url: https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/SECURITY.md
+    about: Nunca descreva uma vulnerabilidade em issue pública. Veja aqui o canal correto.
+
+  - name: 💬 Preciso de ajuda ou não sei onde isso entra
+    url: https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/SUPPORT.md
+    about: Onde pedir ajuda, para quem falar e o que fazer se produção caiu.
+
+  - name: 📖 Team Handbook
+    url: https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/README.md
+    about: Como a equipe trabalha — fluxo, padrões de código, review, deploy.

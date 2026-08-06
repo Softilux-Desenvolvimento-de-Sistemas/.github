@@ -1,0 +1,78 @@
+name: 🛠️ Tarefa técnica
+description: Funcionalidade, melhoria, refatoração, dependência ou débito técnico.
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use este formulário para **trabalho técnico que o próprio time identificou**. Pedido vindo de outra área da empresa entra pelo [Planio](https://softilux.planio.com), não por aqui.
+
+  - type: input
+    id: resumo
+    attributes:
+      label: O que precisa ser feito
+      description: Uma frase, no imperativo.
+      placeholder: Extrair a validação de endereço para um service reutilizável.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: tipo
+    attributes:
+      label: Tipo
+      options:
+        - Funcionalidade nova (feat)
+        - Melhoria de algo existente (feat)
+        - Refatoração, sem mudar comportamento (refactor)
+        - Manutenção, dependência ou config (chore)
+        - Documentação (docs)
+        - Teste (test)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sistema
+    attributes:
+      label: Sistema
+      options:
+        - ILUX
+        - Outro (informe abaixo)
+    validations:
+      required: true
+
+  - type: textarea
+    id: motivo
+    attributes:
+      label: Por quê
+      description: Que problema isso resolve ou que risco reduz. Se a resposta for "fica mais bonito", provavelmente não é prioridade.
+    validations:
+      required: true
+
+  - type: textarea
+    id: aceite
+    attributes:
+      label: Critério de aceite
+      description: Como saberemos que está pronto. Uma lista de verificáveis, não de intenções.
+      placeholder: |
+        - [ ] A validação vive em um único lugar
+        - [ ] Nenhum controller valida endereço direto
+        - [ ] Teste cobrindo CEP inválido e CEP inexistente
+    validations:
+      required: true
+
+  - type: textarea
+    id: contexto
+    attributes:
+      label: Contexto técnico
+      description: Arquivos, rotas, tabelas, armadilhas conhecidas, decisão de arquitetura envolvida. Se houver trade-off relevante, isso provavelmente vira um [ADR](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/templates/adr-template.md) no repositório.
+    validations:
+      required: false
+
+  - type: input
+    id: planio
+    attributes:
+      label: Tarefa no Planio
+      description: Se já existe tarefa, cole o número ou o link.
+      placeholder: "#1234"
+    validations:
+      required: false

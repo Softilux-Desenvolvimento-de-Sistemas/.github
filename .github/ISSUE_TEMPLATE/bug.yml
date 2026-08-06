@@ -1,0 +1,92 @@
+name: 🐛 Bug
+description: Algo está se comportando de forma errada em um sistema nosso.
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Antes de abrir:** se é urgência real — produção fora, cliente parado, perda de dados — **avise no canal do time primeiro** e depois registre aqui. Ver [Deploy e incidentes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy-and-incidents.md).
+
+  - type: input
+    id: resumo
+    attributes:
+      label: O que está errado
+      description: Uma frase. O sintoma, não a causa suposta.
+      placeholder: Exportação de relatório de vendas gera planilha vazia quando o filtro de período é maior que 90 dias.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: sistema
+    attributes:
+      label: Sistema
+      options:
+        - ILUX
+        - Outro (informe abaixo)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ambiente
+    attributes:
+      label: Ambiente
+      options:
+        - Produção
+        - Homologação
+        - Local
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severidade
+    attributes:
+      label: Severidade
+      description: |
+        **SEV1** — sistema fora, cliente parado, perda de dados
+        **SEV2** — funcionalidade importante quebrada, existe contorno
+        **SEV3** — problema pontual, impacto pequeno
+      options:
+        - SEV3 — impacto pequeno
+        - SEV2 — importante, tem contorno
+        - SEV1 — crítico, cliente parado
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproducao
+    attributes:
+      label: Como reproduzir
+      description: Passos numerados, do zero até o erro aparecer. Se não reproduz sempre, diga em que condição aparece.
+      placeholder: |
+        1. Entrar em Relatórios → Vendas
+        2. Filtrar de 01/01 a 30/06
+        3. Clicar em Exportar
+        4. A planilha baixa com apenas o cabeçalho
+    validations:
+      required: true
+
+  - type: textarea
+    id: esperado
+    attributes:
+      label: O que deveria acontecer
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidencia
+    attributes:
+      label: Evidências
+      description: Print, log, mensagem de erro, ID do registro, horário aproximado. Cole ou arraste arquivos aqui.
+      placeholder: |
+        Cuidado: remova dados de cliente e credenciais antes de colar log.
+    validations:
+      required: false
+
+  - type: input
+    id: planio
+    attributes:
+      label: Tarefa no Planio
+      description: Se já existe tarefa, cole o número ou o link. Se não existe, deixe vazio — a triagem cria.
+      placeholder: "#1234"
+    validations:
+      required: false
