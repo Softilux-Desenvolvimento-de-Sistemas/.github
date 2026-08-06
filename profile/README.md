@@ -1,9 +1,6 @@
 <div align="center">
 
-<picture>
-  <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Softilux-Desenvolvimento-de-Sistemas/.github/main/profile/assets/logo-banner-dark.png">
-  <img src="https://raw.githubusercontent.com/Softilux-Desenvolvimento-de-Sistemas/.github/main/profile/assets/logo-banner-light.png" alt="Softilux" width="400" />
-</picture>
+<img src="https://raw.githubusercontent.com/Softilux-Desenvolvimento-de-Sistemas/.github/main/profile/assets/banner.png" alt="Softilux Developers" width="100%" />
 
 <br/>
 <br/>
