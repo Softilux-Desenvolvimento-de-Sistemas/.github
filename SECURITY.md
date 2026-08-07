@@ -57,7 +57,7 @@ Isso não é motivo de bronca. Erro é insumo, não culpa — errar em silêncio
 
 | Prática | Onde está documentado |
 |---|---|
-| Segredo em GitHub Secrets, nunca no YAML ou no código | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md#segredos) |
+| Segredo em GitHub Secrets, nunca no YAML ou no código | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md#segredos-e-variáveis-de-ambiente) |
 | `.env` fora do versionamento; só `.env.example` sem valores | [Padrão de repositório](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/workflow/repo-standards.md) |
 | Entrada externa validada por schema antes de chegar ao banco | Zod ou class-validator, sempre na borda |
 | Autorização checada, não só autenticação | [Code review](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-review.md) |

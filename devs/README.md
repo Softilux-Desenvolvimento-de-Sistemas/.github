@@ -134,7 +134,7 @@ Modelos prontos para copiar.
 → [Manifesto, regra 2](culture/manifesto.md#2-bloqueio-é-assunto-do-time-não-seu)
 
 **"O que preciso num repositório novo?"**
-→ [Checklist](engineering/ci-cd.md#checklist-de-repositório-novo)
+→ [Checklist](workflow/repo-standards.md#checklist-de-repositório-novo)
 
 </td></tr>
 </table>
