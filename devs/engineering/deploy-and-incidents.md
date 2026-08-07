@@ -201,6 +201,6 @@ O mínimo para cada produto em produção:
 - [ ] Healthcheck de disponibilidade
 - [ ] Alerta chegando em canal que alguém realmente lê
 
-**Ferramenta em uso:** [Grafana](https://status.prodb.com.br/login) — credenciais de acesso com o responsável do setor.
+**Ferramenta em uso:** Grafana — endereço e credenciais de acesso com o responsável do setor.
 
 **Alerta que ninguém olha é pior que alerta nenhum** — ele treina o time a ignorar notificação. Se um alerta dispara direto sem indicar problema real, conserte o alerta ou apague.

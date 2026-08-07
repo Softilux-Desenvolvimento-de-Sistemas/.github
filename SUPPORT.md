@@ -27,7 +27,7 @@ Se você é novo, seu **buddy** é o canal de qualquer pergunta nas duas primeir
 
 **Toda demanda entra pelo Planio.** Não abra issue aqui no GitHub e não peça direto para um dev — isso não é burocracia, é o que garante que seu pedido seja visto e priorizado em vez de se perder numa conversa.
 
-**Planio:** https://softilux.planio.com
+**Não tem acesso ao Planio ainda?** O endereço e o login você pega com o responsável do seu setor.
 
 O que acontece depois: toda tarefa nova é avaliada na **triagem, no mesmo dia útil**. Você recebe uma de quatro respostas — entrou no backlog, falta informação, foi recusada (com justificativa) ou foi escalada. Nunca fica sem resposta.
 

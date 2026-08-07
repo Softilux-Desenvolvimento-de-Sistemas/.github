@@ -4,16 +4,16 @@
 
 | Ferramenta | Para que serve | O que **não** fazer nela |
 |---|---|---|
-| **[Planio](https://softilux.planio.com)** | Fonte da verdade de demanda: o quê, por quê, para quem, prazo | Discussão técnica profunda, revisão de código |
-| **[GitHub](https://github.com/Softilux-Desenvolvimento-de-Sistemas)** | Código, PR, review, CI, ADR e este handbook | Registrar prioridade de negócio |
-| **[Grafana](https://status.prodb.com.br/login)** | Monitoramento e status dos ambientes ([Deploy e incidentes](../engineering/deploy-and-incidents.md#monitoramento)) | — |
+| **Planio** | Fonte da verdade de demanda: o quê, por quê, para quem, prazo | Discussão técnica profunda, revisão de código |
+| **GitHub** | Código, PR, review, CI, ADR e este handbook | Registrar prioridade de negócio |
+| **Grafana** | Monitoramento e status dos ambientes ([Deploy e incidentes](../engineering/deploy-and-incidents.md#monitoramento)) | — |
 | **Grupo de WhatsApp** | Conversa do dia, bloqueio, aviso rápido | Decisão que não fica registrada em lugar nenhum, e qualquer credencial |
 | **Obsidian** | As senhas e credenciais que você usa no trabalho | Compartilhar credencial com colega |
 | **VPN** | Acesso à rede interna | — |
 
 > **A regra que evita 80% da confusão:** Planio = *o quê* e *por quê*. GitHub = *como* e *como a gente trabalha*. A ponte entre os dois é o ID da tarefa no nome da branch e no título do PR. Nunca duplique informação entre eles.
 
-**Quem provisiona:** o responsável do setor. **Qualquer dúvida ou acesso, fale com o responsável do setor.**
+**Quem provisiona:** o responsável do setor. **Os endereços de acesso e as credenciais de cada ferramenta você pega com ele** — nada disso fica escrito aqui.
 
 **Problema com a VPN** — não conecta, cai, credencial não funciona — é com o suporte da Prodb: **suporte@prodb.com.br**.
 

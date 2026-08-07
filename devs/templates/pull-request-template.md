@@ -9,7 +9,7 @@ Salve o conteúdo abaixo em `.github/pull_request_template.md` na raiz de cada r
 
 <!-- Uma ou duas frases. O revisor precisa entender o objetivo sem abrir o Planio. -->
 
-Tarefa: [#0000](https://softilux.planio.com/issues/0000)
+Tarefa: #0000
 
 ## Por quê
 
