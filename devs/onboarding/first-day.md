@@ -23,7 +23,7 @@ Se você é o buddy: reserve ~1h/dia da sua primeira semana com essa pessoa. Iss
 
 - [ ] Setup do ambiente ([Ambiente de desenvolvimento](dev-environment.md))
 - [ ] Configuração do editor ([Editores](editors.md))
-- [ ] Clonar os repositórios principais — estrutura padrão em [Padrão de repositório](../workflow/repo-standards.md)
+- [ ] Clonar o monorepo do produto em que você vai mexer — estrutura padrão em [Padrão de repositório](../workflow/repo-standards.md). Um clone põe o produto inteiro de pé: `pnpm install && docker compose up -d && pnpm dev`
 - [ ] Subir o ambiente completo de um produto: banco via Docker, migrations, seed, API e front conversando
 - [ ] Rodar a suíte de testes local e ver tudo verde
 

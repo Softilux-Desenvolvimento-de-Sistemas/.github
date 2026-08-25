@@ -7,11 +7,13 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 | [Git e GitHub](git-and-github.md) | Estratégia de branch, commits, proteções |
 | [Code review](code-review.md) | SLA, o que olhar, como criticar |
 | [Testes](testing.md) | Vitest, o que testar, cobertura |
-| [CI/CD](ci-cd.md) 🚧 | GitHub Actions, pipelines, ambientes — **em construção** |
+| [Monorepo](monorepo.md) | Por que é o padrão, app × package, quando NÃO usar |
+| [Contexto de agente](agent-context.md) | O que vai no `AGENTS.md`, e quando vira skill |
 | [Deploy e incidentes](deploy-and-incidents.md) | Como subir e o que fazer quando cai |
 
 > [!NOTE]
-> **Precedência:** o `claude.md` de cada projeto manda. Estas páginas são o padrão para projeto novo e para o que não está especificado em lugar nenhum.
+> **Precedência:** o `AGENTS.md` de cada projeto manda, dentro do escopo dele. Estas páginas são o padrão para projeto novo e para o que não está especificado em lugar nenhum.
+> O que vai dentro de um `AGENTS.md` está em [Contexto de agente](agent-context.md).
 
 ---
 

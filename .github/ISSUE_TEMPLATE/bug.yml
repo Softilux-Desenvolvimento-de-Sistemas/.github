@@ -27,6 +27,19 @@ body:
       required: true
 
   - type: dropdown
+    id: app
+    attributes:
+      label: App
+      description: Em qual serviço do repositório. Não sabe? Deixe "Não sei".
+      options:
+        - api
+        - web
+        - Os dois
+        - Não sei
+    validations:
+      required: false
+
+  - type: dropdown
     id: ambiente
     attributes:
       label: Ambiente

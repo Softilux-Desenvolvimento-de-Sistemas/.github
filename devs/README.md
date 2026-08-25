@@ -90,7 +90,8 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 | [Git e GitHub](engineering/git-and-github.md) | Estratégia de branch, commits, proteções |
 | [Code review](engineering/code-review.md) | SLA, o que olhar, como criticar |
 | [Testes](engineering/testing.md) | Vitest, o que testar, cobertura |
-| [CI/CD](engineering/ci-cd.md) 🚧 | GitHub Actions, pipelines, ambientes — **em construção** |
+| [Monorepo](engineering/monorepo.md) | Por que é o padrão, app × package, quando NÃO usar |
+| [Contexto de agente](engineering/agent-context.md) | O que vai no `AGENTS.md`, e quando vira skill |
 | [Deploy e incidentes](engineering/deploy-and-incidents.md) | Como subir e o que fazer quando cai |
 
 ### 📋 [Templates](templates/)
@@ -102,6 +103,7 @@ Modelos prontos para copiar.
 | [Pull request](templates/pull-request-template.md) | Template de PR |
 | [Retrospectiva](templates/retro-template.md) | Roteiro da retro |
 | [ADR](templates/adr-template.md) | Registro de decisão de arquitetura |
+| [AGENTS.md](templates/agents-template.md) | Instrução para agente de IA |
 
 ---
 
@@ -121,6 +123,9 @@ Modelos prontos para copiar.
 
 **"Preciso escrever teste para isso?"**
 → [Testes](engineering/testing.md#o-que-testar)
+
+**"O que eu escrevo no `AGENTS.md`?"**
+→ [Contexto de agente](engineering/agent-context.md#3-entra-ou-não-entra)
 
 </td><td width="50%">
 
@@ -145,7 +150,7 @@ Modelos prontos para copiar.
 
 - `<!-- PREENCHER -->` marca informação que ainda falta. **Se você sabe a resposta, preencha.**
 - Decisão de engenharia com trade-off relevante vira um [ADR](templates/adr-template.md) no repositório correspondente, não uma página aqui.
-- Regras específicas de um projeto moram no `claude.md` do repositório dele e **têm precedência** sobre este handbook.
+- Regras específicas de um projeto moram no [`AGENTS.md`](engineering/agent-context.md) do repositório dele e **têm precedência** sobre este handbook **dentro do escopo delas**. Sobre o que é da organização, quem manda é o handbook.
 - Uma página por assunto. Se você precisa de duas, o assunto eram dois.
 
 <div align="center">

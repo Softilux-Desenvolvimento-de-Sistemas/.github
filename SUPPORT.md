@@ -12,7 +12,7 @@
 | Destravar de um problema técnico | Canal do time — **regra dos 45 minutos** |
 | Setup da máquina | [Ambiente de desenvolvimento](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/onboarding/dev-environment.md) |
 | Acesso, conta ou permissão | [Acessos e ferramentas](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/onboarding/access-and-tools.md) |
-| Saber como um produto sobe | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
+| Saber como um produto sobe | [Deploy e incidentes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy-and-incidents.md) |
 | Prioridade da minha semana | Gestor, sempre |
 | Produção caiu | [Deploy e incidentes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy-and-incidents.md) — avise no grupo, a equipe se junta |
 

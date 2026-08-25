@@ -103,13 +103,19 @@ A 24 é a LTS ativa e é o nosso default; a 22 fica instalada porque ainda há p
 
 Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm use` dentro da pasta do projeto já seleciona a versão certa. Para trocar automaticamente ao entrar na pasta, veja [troca automática de versão](#troca-automática-de-versão-opcional).
 
-## 7. npm
+## 7. pnpm
 
-O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
+**pnpm é o padrão em projeto novo.** Ele vem pelo corepack, que já acompanha o Node 24:
 
-`npm` é o padrão do time, em todos os repositórios. Não existe projeto nosso em pnpm ou yarn.
+```bash
+corepack enable
+```
 
-> Nunca rode outro gerenciador num repositório nosso. `pnpm install` ou `yarn` geram um lock paralelo ao `package-lock.json`, e aí duas pessoas passam a instalar árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
+Não instale pnpm globalmente. **A versão vem do `packageManager` do `package.json` do repositório** — o corepack lê de lá e usa a versão certa em cada projeto, sem você fazer nada. É o mesmo mecanismo que o CI usa.
+
+> **Use o gerenciador do repositório, que é o do `packageManager`.** Rodar `npm install` num repo pnpm gera um `package-lock.json` paralelo ao `pnpm-lock.yaml`, e aí duas pessoas instalam árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
+
+Há repositórios legados em npm, e pelo menos um em yarn. Isso é dívida mapeada, não exceção permanente: enquanto existirem, respeite o lock que está lá.
 
 ## 8. Docker
 
@@ -209,13 +215,19 @@ A 24 é a LTS ativa e é o nosso default; a 22 fica instalada porque ainda há p
 
 Todo repositório nosso tem um `.nvmrc` na raiz, que o nvm lê nativamente: `nvm use` dentro da pasta do projeto já seleciona a versão certa. Para trocar automaticamente ao entrar na pasta, veja [troca automática de versão](#troca-automática-de-versão-opcional).
 
-## 4. npm
+## 4. pnpm
 
-O npm vem junto com o Node — não precisa instalar nada. Confira com `npm -v`.
+**pnpm é o padrão em projeto novo.** Ele vem pelo corepack, que já acompanha o Node 24:
 
-`npm` é o padrão do time, em todos os repositórios. Não existe projeto nosso em pnpm ou yarn.
+```bash
+corepack enable
+```
 
-> Nunca rode outro gerenciador num repositório nosso. `pnpm install` ou `yarn` geram um lock paralelo ao `package-lock.json`, e aí duas pessoas passam a instalar árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
+Não instale pnpm globalmente. **A versão vem do `packageManager` do `package.json` do repositório** — o corepack lê de lá e usa a versão certa em cada projeto, sem você fazer nada. É o mesmo mecanismo que o CI usa.
+
+> **Use o gerenciador do repositório, que é o do `packageManager`.** Rodar `npm install` num repo pnpm gera um `package-lock.json` paralelo ao `pnpm-lock.yaml`, e aí duas pessoas instalam árvores de dependência diferentes. Se acontecer, apague o lock errado e não commite.
+
+Há repositórios legados em npm, e pelo menos um em yarn. Isso é dívida mapeada, não exceção permanente: enquanto existirem, respeite o lock que está lá.
 
 ## 5. Docker
 
@@ -319,18 +331,20 @@ git clone git@github.com:<org>/<repo>.git
 cd <repo>
 
 nvm use                    # lê o .nvmrc
-npm ci                     # instalação limpa, respeitando o package-lock.json
+pnpm install               # instala o workspace inteiro
 
-cp .env.example .env       # preencha o que faltar
+cp apps/<app>/.env.example apps/<app>/.env    # preencha o que faltar
 docker compose up -d       # banco e serviços locais
 
-npm run db:migrate         # ou prisma migrate dev / typeorm migration:run
-npm run db:seed            # se houver seed
+pnpm --filter=./apps/<app> run db:migrate
+pnpm --filter=./apps/<app> run db:seed        # se houver seed
 
-npm run dev
+pnpm dev
 ```
 
-Use `npm ci` no clone inicial: ele instala exatamente o que está no lock e é mais rápido. `npm install` só quando você for de fato adicionar ou atualizar dependência — é ele que reescreve o `package-lock.json`.
+Não existe `pnpm ci`. O `pnpm install` já respeita o lock, e em CI o `--frozen-lockfile` entra sozinho quando `CI=true` — por isso não se escreve à mão na máquina de dev.
+
+Num repositório de um app só, os caminhos `apps/<app>` somem e os comandos rodam na raiz.
 
 Se algum passo falhar, **primeiro** cheque o `README.md` do repositório — ele manda mais que esta página. Se o README estiver errado, corrija-o no mesmo PR da sua próxima tarefa.
 
@@ -342,10 +356,10 @@ Se algum passo falhar, **primeiro** cheque o `README.md` do repositório — ele
 | `wsl --install` só imprime o texto de ajuda | WSL já instalado na máquina | `wsl --list --online` e depois `wsl --install -d Ubuntu` |
 | Download da distro travado em 0.0% | Acesso à Store bloqueado ou instável | `wsl --install --web-download -d Ubuntu` |
 | Hot reload não dispara no WSL | Projeto está em `/mnt/c` | Mover para `~/projects` |
-| `EACCES` ao instalar pacote global | Node instalado como root | Reinstalar via nvm, nunca usar `sudo npm` |
+| `EACCES` ao instalar pacote global | Node instalado como root | Reinstalar via nvm, nunca usar `sudo npm`/`sudo pnpm` |
 | Porta já em uso | Container antigo de outro projeto | `docker ps` e `docker compose down` no projeto anterior |
 | Migration falha ao subir do zero | Volume do banco com estado antigo | `docker compose down -v` e subir de novo |
-| Lock file com conflito gigante | Merge do lock | Não resolva à mão: `git checkout main -- package-lock.json && npm install` |
+| Lock file com conflito gigante | Merge do lock | Não resolva à mão: `git checkout main -- pnpm-lock.yaml && pnpm install` |
 | Docker não responde no WSL (Docker Desktop) | Integração desabilitada | Docker Desktop → Resources → WSL Integration |
 | `Cannot connect to the Docker daemon` no WSL (engine direto) | systemd desligado na distro | `[boot] systemd=true` no `/etc/wsl.conf` e `wsl --shutdown` |
 | `permission denied` no socket do Docker | Grupo `docker` ainda não valeu na sessão | `wsl --shutdown` (reabrir o terminal não basta) |
@@ -353,11 +367,15 @@ Se algum passo falhar, **primeiro** cheque o `README.md` do repositório — ele
 
 # Padrão de organização local
 
+Um diretório por **repositório** — e como o padrão é monorepo, um repositório é um produto inteiro, com os serviços dentro:
+
 ```
 ~/projects/
-├── <produto-a>/
+├── <produto-a>/          # monorepo: apps/api, apps/web
+│   ├── apps/
+│   └── packages/
 ├── <produto-b>/
-└── ilux/
+└── ilux/                 # repo separado (release versionada em cliente)
 ```
 
 Sem espaço, sem acento e sem caminho longo. Ajuda script, ajuda o terminal e ajuda quem for te dar suporte.

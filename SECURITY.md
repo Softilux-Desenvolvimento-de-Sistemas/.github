@@ -57,14 +57,14 @@ Isso não é motivo de bronca. Erro é insumo, não culpa — errar em silêncio
 
 | Prática | Onde está documentado |
 |---|---|
-| Segredo em GitHub Secrets, nunca no YAML ou no código | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md#segredos-e-variáveis-de-ambiente) |
+| Segredo em GitHub Secrets, nunca no YAML ou no código | Secrets separados por environment; nunca `echo` de segredo em step de debug |
 | `.env` fora do versionamento; só `.env.example` sem valores | [Padrão de repositório](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/workflow/repo-standards.md) |
 | Entrada externa validada por schema antes de chegar ao banco | Zod ou class-validator, sempre na borda |
 | Autorização checada, não só autenticação | [Code review](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-review.md) |
 | Nunca vazar stack trace ou erro de banco para o cliente | Mensagem genérica para o cliente, detalhe só no log |
-| `permissions: contents: read` no topo do workflow | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
-| Action de terceiro com acesso a segredo fixada por SHA | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
-| Dependabot ativo, atualização entra como `chore` na sprint | [CI/CD](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/ci-cd.md) |
+| `permissions: contents: read` no topo do workflow | O padrão do GitHub é permissivo demais; declare o mínimo |
+| Action de terceiro com acesso a segredo fixada por SHA | Tag é mutável: `@v1` pode virar outro código sem você saber |
+| Dependabot ativo, atualização entra como `chore` na sprint | Ele não enxerga versão fixada em `catalog:` — essa é manual |
 
 **Segurança é item de code review**, não uma fase separada no fim. Está na lista do que se olha em todo PR.
 
