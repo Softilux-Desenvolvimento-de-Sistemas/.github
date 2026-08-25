@@ -42,11 +42,11 @@
 </tr>
 <tr>
 <td align="center">⚙️<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/engineering">Engenharia</a></b></td>
-<td>Git, code review, padrões de código, testes, CI/CD, deploy e incidentes</td>
+<td>Git, code review, testes, monorepo, contexto de agente, CI/CD, deploy e incidentes</td>
 </tr>
 <tr>
 <td align="center">📋<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/templates">Templates</a></b></td>
-<td>Pull request, retrospectiva e ADR</td>
+<td>Pull request, retrospectiva, ADR e AGENTS.md</td>
 </tr>
 </table>
 

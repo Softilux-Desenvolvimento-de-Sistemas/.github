@@ -48,7 +48,7 @@ No WSL, instale o VS Code **no Windows**, não dentro do Ubuntu. Ele se conecta 
 | ESLint | Idem — o Biome já cobre lint nos nossos projetos |
 | Auto Import (terceiros) | O TS server nativo já faz isso melhor |
 
-Se um projeto legado ainda usa Prettier/ESLint, o `claude.md` e o `README.md` dele dizem isso — nesse caso habilite as extensões **por workspace**, não globalmente.
+Se um projeto legado ainda usa Prettier/ESLint, o `AGENTS.md` e o `README.md` dele dizem isso — nesse caso habilite as extensões **por workspace**, não globalmente.
 
 ### `settings.json` — base do time
 
@@ -90,7 +90,7 @@ O que está comentado como "a sua escolha" é gosto pessoal e ninguém revisa. O
   "explorer.fileNesting.enabled": true, // agrupa arquivo satélite embaixo do principal
   "explorer.fileNesting.expand": false, // agrupado começa fechado
   "explorer.fileNesting.patterns": {
-    "package.json": "package-lock.json, .npmrc, .nvmrc, biome.json*, .editorconfig, tsconfig*.json, vitest.config*.ts",
+    "package.json": "pnpm-lock.yaml, pnpm-workspace.yaml, turbo.json, .npmrc, .nvmrc, biome.json*, .editorconfig, tsconfig*.json, vitest.config*.ts",
     ".env": ".env.*",
     "*.ts": "${capture}.spec.ts, ${capture}.e2e-spec.ts",
     "docker-compose.yml": "docker-compose.*.yml, Dockerfile*, .dockerignore",
@@ -137,7 +137,7 @@ O que está comentado como "a sua escolha" é gosto pessoal e ninguém revisa. O
     "**/node_modules": true,
     "**/dist": true,
     "**/.next": true,
-    "**/package-lock.json": true
+    "**/pnpm-lock.yaml": true
   },
 
   // ─── Extensões ───────────────────────────────────────────
@@ -220,7 +220,7 @@ Só o que é específico do projeto — não replique preferência pessoal aqui:
 }
 ```
 
-Suba a API com `npm run start:debug` e conecte. Debugger com breakpoint resolve em minutos o que `console.log` leva uma hora.
+Suba a API com `pnpm --filter=./apps/api run start:debug` e conecte. Debugger com breakpoint resolve em minutos o que `console.log` leva uma hora.
 
 ---
 

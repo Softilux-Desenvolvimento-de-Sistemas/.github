@@ -2,7 +2,7 @@
 
 Teste aqui não é meta de cobertura nem ritual de qualidade. É o que permite mexer em código que você não escreveu, num produto que roda em cliente, sem medo.
 
-> **Precedência:** o `claude.md` de cada projeto manda. Esta página é o padrão para projeto novo e para o que não está especificado em lugar nenhum.
+> **Precedência:** o `AGENTS.md` de cada projeto manda, dentro do escopo dele. Esta página é o padrão para projeto novo e para o que não está especificado em lugar nenhum.
 
 ## Ferramenta
 
@@ -19,9 +19,9 @@ Teste aqui não é meta de cobertura nem ritual de qualidade. É o que permite m
 Scripts padronizados em todo repositório:
 
 ```bash
-npm test               # watch, uso local
-npm run test:run       # execução única, é o que o CI roda
-npm run test:cov       # relatório de cobertura
+pnpm test                                    # watch, uso local
+pnpm turbo run test --filter=./apps/<app>    # execução única, é o que o CI roda
+pnpm --filter=./apps/<app> run test:cov      # relatório de cobertura
 ```
 
 ---
@@ -154,7 +154,7 @@ Teste com mock demais passa a testar o mock. Se o setup do teste tem 30 linhas d
 
 Teste de integração roda contra **Postgres de verdade**, em container, com o mesmo schema de produção. SQLite em memória "para ir mais rápido" testa um banco que você não usa.
 
-- O CI já sobe o serviço Postgres e roda as migrations ([CI/CD](ci-cd.md))
+- O CI, quando existir, sobe o serviço Postgres e roda as migrations
 - Cada teste limpa o que criou, ou roda dentro de transação com rollback
 - Teste não depende da ordem de execução nem de dado deixado por outro
 - Nunca aponte teste para banco de homologação
@@ -187,7 +187,7 @@ it("mostra o erro quando o e-mail é inválido", async () => {
 Poucos e certeiros. E2E é caro para rodar e caro para manter.
 
 - Cubra os **3 a 5 fluxos que, se quebrarem, o cliente para de trabalhar**: login, o fluxo principal do produto, o que envolve dinheiro
-- Roda em `main` e antes do deploy de produção — não em todo PR, salvo com a label `run-e2e` ([CI/CD](ci-cd.md))
+- Roda em `main` e antes do deploy de produção — não em todo PR
 - Teste E2E instável (*flaky*) é pior que teste ausente: ensina o time a ignorar vermelho. Conserte no mesmo dia ou remova
 
 ---
@@ -216,7 +216,7 @@ Se um número ajuda a calibrar: regra de negócio tende a ficar acima de 80% nat
 
 ## No dia a dia
 
-- Rode `npm test` em watch enquanto desenvolve. Feedback de 2 segundos muda como você escreve código
-- Antes de abrir o PR: `npm run test:run` local. Deixar o CI descobrir é desperdício de fila
+- Rode `pnpm test` em watch enquanto desenvolve. Feedback de 2 segundos muda como você escreve código
+- Antes de abrir o PR: `pnpm turbo run test` local. Deixar o CI descobrir é desperdício de fila
 - Correção de bug: escreva o teste que falha **primeiro**. É a única forma de saber que o teste realmente pega aquele bug
 - Revisando PR: "tem teste cobrindo isso?" é pergunta legítima, e é item do [code review](code-review.md) e da [DoD](../workflow/demand-cycle.md#definition-of-done-dod)

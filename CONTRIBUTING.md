@@ -13,7 +13,7 @@
 Esta é a versão curta. A regra completa está sempre no **[Team Handbook](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/README.md)** — se houver divergência, o handbook manda.
 
 > [!NOTE]
-> Regras específicas de um projeto moram no `claude.md` do repositório e **têm precedência** sobre o handbook.
+> Regras específicas de um projeto moram no [`AGENTS.md`](devs/engineering/agent-context.md) do repositório (e no de cada app, num monorepo) e **têm precedência** sobre o handbook **dentro do escopo delas** — stack, arquitetura, convenção de código. Sobre o que é da organização, quem manda é o handbook.
 
 ---
 
@@ -57,7 +57,7 @@ chore(deps): bump prisma to 6.2
 | Código em inglês, documentação em português | Sem `calcularTotalOrder` |
 | Arquivos em `kebab-case` | `invoice-repository.ts` |
 | `any` é proibido | Use `unknown` e faça o narrowing |
-| Formatação é do Biome | `npx biome check --write` |
+| Formatação é do Biome | `pnpm exec biome check --write .` |
 | Toda entrada externa é validada | Zod ou class-validator |
 
 ## Testes
@@ -65,14 +65,14 @@ chore(deps): bump prisma to 6.2
 Todo `fix` nasce com um teste que falha antes e passa depois. Regra de negócio sempre tem teste.
 
 ```bash
-npm run test:run
+pnpm turbo run test
 ```
 
 📖 [Testes](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/testing.md)
 
 ## Pull Request
 
-- Abra como **draft** no primeiro commit — dá visibilidade e roda o CI cedo
+- Abra como **draft** no primeiro commit — dá visibilidade cedo
 - Título no padrão do commit, com o ID do Planio: `feat(billing): add invoice export to xlsx [#1234]`
 - **Meta: menos de 400 linhas alteradas**
 - Preencha o template. O campo **"Por quê"** é o mais importante
@@ -100,7 +100,7 @@ Toda crítica vem com alternativa ou com pergunta. Crítica é sempre no código
 ## Pronto de verdade
 
 - [ ] Código na `main` via PR aprovado
-- [ ] CI verde (lint, testes, build)
+- [ ] `pnpm exec biome ci .`, `pnpm turbo run typecheck` e `pnpm turbo run build` limpos na sua máquina
 - [ ] Testes cobrindo o comportamento novo
 - [ ] Critérios de aceite verificados um a um
 - [ ] Validado pelo solicitante em homologação

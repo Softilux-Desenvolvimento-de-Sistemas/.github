@@ -22,18 +22,34 @@ Regra prática: se a discussão levou mais de 30 minutos, ou se você já explic
 
 ## Onde fica
 
-No repositório do projeto, não no Notion:
+No repositório do projeto, não no Notion. **O escopo da decisão decide a pasta:**
+
+| A decisão afeta | Mora em |
+|---|---|
+| O workspace inteiro | `docs/adr/` na raiz |
+| Um app só | `apps/<app>/docs/adr/` |
 
 ```
-docs/adr/
+docs/adr/                                  ← workspace
+├── 0001-monorepo-with-pnpm-workspaces.md
+└── 0002-openapi-as-the-api-web-contract.md
+
+apps/api/docs/adr/                         ← só a API
 ├── 0001-use-prisma-as-orm.md
-├── 0002-monorepo-with-pnpm-workspaces.md
-└── 0003-background-jobs-with-bullmq.md
+└── 0002-background-jobs-with-bullmq.md
 ```
 
-Numeração sequencial, nome em inglês e kebab-case. No repositório porque ele evolui junto com o código e aparece no review de quem for mexer ali.
+Numeração **independente por escopo** — a raiz e cada app têm a sua sequência. O caminho já desambigua, e sequência única exigiria coordenação entre PRs de apps diferentes, que é o atrito que monorepo existe para eliminar.
+
+Nome em inglês e kebab-case. No repositório porque o ADR evolui junto com o código e aparece no review de quem for mexer ali.
+
+> Num monorepo, guarde **um** `0000-template.md`, na raiz. Cópia por app é cópia que diverge.
 
 ADR **não se edita**. Mudou de ideia? Escreva um novo, marcando o anterior como substituído.
+
+> **A fronteira com o `AGENTS.md`:** o [`AGENTS.md`](../engineering/agent-context.md) diz *o que vale hoje*; o ADR diz *por que foi decidido*. Se você está escrevendo "por quê" no `AGENTS.md`, é ADR — e o `AGENTS.md` linka para ele.
+>
+> Decisão que já está registrada no `AGENTS.md` não precisa virar ADR retroativo. Mas as cinco ou dez que explicam por que o sistema é como é valem o esforço.
 
 ---
 

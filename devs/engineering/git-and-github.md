@@ -15,7 +15,7 @@ main ← sempre deployável, protegida
 
 ### Exceção: ILUX
 
-O ILUX, por ter release versionada em cliente, pode usar Git Flow reduzido com `main` + `release/x.y`. A decisão está registrada no `claude.md` e no ADR do repositório dele. Nos demais produtos, GitHub Flow sem exceção.
+O ILUX, por ter release versionada em cliente, pode usar Git Flow reduzido com `main` + `release/x.y`. A decisão está registrada no `AGENTS.md` e no ADR do repositório dele — é também o exemplo canônico de [quando não fazer monorepo](monorepo.md#quando-não-fazer-monorepo). Nos demais produtos, GitHub Flow sem exceção.
 
 ### Nomenclatura de branch
 
@@ -112,34 +112,36 @@ Renomeação em massa ou geração de arquivo? **PR separado**, sempre — não 
 Abra como draft assim que tiver o primeiro commit. Serve para:
 
 - Deixar visível o que você está fazendo
-- Rodar o CI cedo
 - Receber comentário de direção antes de terminar
 
-Marque como "Ready for review" quando o CI estiver verde e você tiver relido o próprio diff.
+Marque como "Ready for review" quando lint, typecheck e build estiverem limpos na sua máquina e você tiver relido o próprio diff.
 
 ### Merge
 
 - **Squash and merge** é o padrão. Histórico da `main` = uma linha por PR
 - A mensagem do squash é o título do PR
-- Merge só com CI verde e ao menos 1 aprovação
+- Merge só com ao menos 1 aprovação, e com lint, typecheck e build limpos
 - **Quem faz o merge é o autor**, não o revisor — o autor sabe se ainda falta algo
 
 ---
 
 ## Configuração do repositório
 
-### Branch protection em `main`
+### Proteção da `main`
 
-- [x] Require a pull request before merging
-- [x] Require approvals: **1**
-- [x] Dismiss stale approvals when new commits are pushed
-- [x] Require review from Code Owners
-- [x] Require status checks to pass: `lint`, `test`, `build`
-- [x] Require branches to be up to date before merging
-- [x] Require conversation resolution before merging
-- [x] Do not allow bypassing the above settings *(vale para todos, inclusive gestão)*
-- [ ] ~~Allow force pushes~~
-- [ ] ~~Allow deletions~~
+> [!IMPORTANT]
+> **Branch protection não está disponível no nosso plano** para repositório privado. Enquanto isso, as regras abaixo são **acordo do time**, não configuração — valem porque combinamos, e a única coisa que as sustenta é o review.
+
+O que combinamos:
+
+- **Nada entra na `main` sem PR.** Nem hotfix, nem "é uma linha só"
+- **1 aprovação, no mínimo**
+- **Nunca `--force` na `main`.** Em branch sua, só `--force-with-lease`
+- **Nunca apague a `main`**
+- **Conversa resolvida antes do merge.** Comentário `[bloqueante]` aberto é PR que não merge
+- **A regra vale para todos**, inclusive gestão
+
+Quando o plano permitir branch protection, essas mesmas regras viram as caixas da tela de configuração — `Require a pull request`, `Require approvals: 1`, `Require conversation resolution`, e force push e deletion desabilitados.
 
 ### Configurações gerais
 
@@ -172,7 +174,7 @@ git push -u origin hotfix/1299-payment-timeout
 |---|---|
 | Commitou na `main` local | `git reset --soft HEAD~1`, cria a branch, commita nela |
 | Commitou segredo | **Avise imediatamente.** A credencial precisa ser rotacionada — remover do histórico não basta |
-| Conflito no lock file | `git checkout main -- package-lock.json && npm install` |
+| Conflito no lock file | `git checkout main -- pnpm-lock.yaml && pnpm install` |
 | Precisa desfazer merge já na `main` | `git revert -m 1 <sha>` via PR. Nunca reescreva histórico da `main` |
 | Branch muito atrás da `main` | `git fetch && git rebase origin/main`, resolve, `git push --force-with-lease` (só na sua branch) |
 

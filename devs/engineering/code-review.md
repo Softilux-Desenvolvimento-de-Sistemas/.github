@@ -21,6 +21,8 @@ Se você não vai conseguir revisar no prazo, diga no canal para outra pessoa pe
 - Ninguém pegou o PR? Cobre no grupo. Persistindo, o gestor designa o revisor — PR parado por falta de dono é problema do time, não de quem abriu
 - Júnior pode e deve revisar PR de sênior. Aprender a ler código dos outros é metade da senioridade
 
+> **Sem `CODEOWNERS`, quem marca o revisor é o autor.** Num monorepo, diga qual app o PR toca — ninguém é notificado por caminho de arquivo. Ver [Padrão de repositório](../workflow/repo-standards.md#quem-revisa).
+
 ## Como revisar
 
 Ordem que funciona:
@@ -50,7 +52,8 @@ Ordem que funciona:
 - Paginação onde a lista pode crescer
 
 **Manutenção**
-- Segue as convenções do `claude.md` do repositório?
+- Segue as convenções do `AGENTS.md` do repositório (e do app, num monorepo)?
+- Mudou algo que invalida uma linha do `AGENTS.md`? A atualização vem no mesmo PR — deriva ali é `[bloqueante]`.
 - Nome diz o que a coisa faz?
 - Abstração criada na primeira repetição? (não abstraia ainda)
 - Teste cobrindo o comportamento novo? ([Testes](testing.md))
