@@ -57,13 +57,14 @@ Isso não é motivo de bronca. Erro é insumo, não culpa — errar em silêncio
 
 | Prática | Onde está documentado |
 |---|---|
-| Segredo em GitHub Secrets, nunca no YAML ou no código | Secrets separados por environment; nunca `echo` de segredo em step de debug |
+| Segredo de produção no arquivo de ambiente da VM (`600`), nunca no YAML, no código ou em GitHub Secrets | O pipeline roda na máquina que já tem o arquivo: o segredo não passa pelo GitHub. Nunca `echo` de segredo em step de debug |
 | `.env` fora do versionamento; só `.env.example` sem valores | [Padrão de repositório](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/workflow/repo-standards.md) |
 | Entrada externa validada por schema antes de chegar ao banco | Zod ou class-validator, sempre na borda |
 | Autorização checada, não só autenticação | [Code review](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-review.md) |
 | Nunca vazar stack trace ou erro de banco para o cliente | Mensagem genérica para o cliente, detalhe só no log |
 | `permissions: contents: read` no topo do workflow | O padrão do GitHub é permissivo demais; declare o mínimo |
-| Action de terceiro com acesso a segredo fixada por SHA | Tag é mutável: `@v1` pode virar outro código sem você saber |
+| Só action da própria organização, fixada por tag exata | O deploy não usa action de terceiro, então bloquear todas em Settings → Actions não custa nada. E `@v1` móvel pode virar outro código sem você saber |
+| Self-hosted runner **só** em repositório privado, e por repositório | Em repo público, PR de fork roda workflow — e workflow é comando executado na máquina de produção |
 | Dependabot ativo, atualização entra como `chore` na sprint | Ele não enxerga versão fixada em `catalog:` — essa é manual |
 
 **Segurança é item de code review**, não uma fase separada no fim. Está na lista do que se olha em todo PR.

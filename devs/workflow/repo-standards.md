@@ -21,6 +21,10 @@ Quando isso não acontece, o README está incompleto — não o dev.
 | `docker-compose.yml` | Serviços locais (banco, cache, etc.) |
 | `.husky/` | `pre-commit` e `pre-push`, **só na raiz** |
 | `.github/dependabot.yml` | Atualização de dependência |
+| `.github/workflows/deploy.yml` | O gatilho do deploy ([template](../templates/deploy-template.md)) |
+| `deploy.conf` | Os fatos de deploy da aplicação |
+| `docker-compose-prod.yml` | Os serviços de produção ([contrato](../engineering/deploy-standard.md#o-contrato-do-repositório)) |
+| `deploy-checklist.md` | A conferência à mão depois de subir |
 | `.vscode/extensions.json` | Extensões recomendadas |
 | `docs/adr/` | [Decisões do workspace](../templates/adr-template.md) |
 
@@ -86,7 +90,7 @@ O setup específico, os scripts, e a seção que mais importa:
 
 ## Os hooks são a única verificação automática
 
-Enquanto não houver pipeline, **nada roda no servidor**: o que pega erro antes do review são os hooks locais, e eles vivem só na raiz do repositório.
+O que roda no servidor é o **deploy** ([Padrão de deploy](../engineering/deploy-standard.md)) — ele **sobe**, não **verifica**. Não há pipeline de checagem: o que pega erro antes do review são os hooks locais, e eles vivem só na raiz do repositório.
 
 | Hook | O que roda |
 |---|---|
@@ -96,7 +100,7 @@ Enquanto não houver pipeline, **nada roda no servidor**: o que pega erro antes 
 Instalados pelo `pnpm install` (script `prepare` da raiz). Clonou e o hook não disparou? Rode `pnpm exec husky` — ele grava `core.hooksPath=.husky/_`, que é config local e não vem no clone.
 
 > [!IMPORTANT]
-> `git commit --no-verify` existe para emergência, não para pressa. Sem CI, pular o hook é pular a **única** checagem automática que temos — o próximo a descobrir o erro é quem revisa, ou o cliente.
+> `git commit --no-verify` existe para emergência, não para pressa. Sem CI, pular o hook é pular a **única** checagem automática que temos — e, como **merge é deploy**, o próximo a descobrir o erro é quem revisa, ou o cliente.
 
 Se o projeto tem um artefato gerado que precisa ficar em dia (um `openapi.json`, tipos derivados de schema), vale um step no `pre-push` que regenera e falha se o versionado divergir. É a checagem que mais se paga num monorepo, porque é a que prova que os dois apps continuam compatíveis.
 
@@ -143,6 +147,7 @@ Comece pelo template de monorepo — ele já traz a raiz montada. O que confirma
 - [ ] `README.md` mapa
 - [ ] `AGENTS.md` + `CLAUDE.md` ponteiro
 - [ ] `dependabot.yml`
+- [ ] Os quatro arquivos de deploy, se a aplicação vai para a VM ([template](../templates/deploy-template.md))
 
 **Por app**
 

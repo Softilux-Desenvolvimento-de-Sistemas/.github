@@ -1,5 +1,10 @@
 # Deploy e incidentes
 
+Esta página é o **processo**: quando pode subir, o que conferir, o que fazer
+quando cai. O **mecanismo** — o que dispara o deploy, o contrato que cada
+repositório cumpre e o que ele não resolve — está em
+[Padrão de deploy](deploy-standard.md).
+
 ## Deploy
 
 ### Janelas
@@ -13,6 +18,11 @@
 | Fora do expediente | Só hotfix |
 
 A regra não é superstição: é ter gente acordada e disponível quando o problema aparecer. Ninguém quer descobrir o bug no sábado de manhã.
+
+> [!IMPORTANT]
+> **Merge é deploy.** Push na branch principal dispara a subida sozinho ([Padrão de deploy](deploy-standard.md)), então a janela acima se aplica ao **botão de merge**. Não existe mais "mergeia agora, sobe depois": PR aprovado na sexta às 17h espera segunda.
+>
+> Quem faz o merge é o autor — logo, a janela é responsabilidade de quem aperta o botão.
 
 ### Atualização que exige parar a produção
 
@@ -30,12 +40,15 @@ Quem entra em plantão de deploy compensa as horas. Subir de madrugada é trabal
 
 ### Antes de subir
 
-- [ ] CI verde na `main`
-- [ ] Validado em homologação pelo solicitante
-- [ ] Migration revisada e reversível
-- [ ] Env vars novas já configuradas no ambiente de destino
-- [ ] Plano de rollback claro
+- [ ] Lint, typecheck, build e teste limpos **na sua máquina** — não existe CI que os rode ([hooks locais](../workflow/repo-standards.md#os-hooks-são-a-única-verificação-automática))
+- [ ] Validado com o solicitante **antes do merge** — não há homologação, então o merge já é o cliente
+- [ ] Migration revisada, reversível, e que funciona **com a versão anterior do código**
+- [ ] Env vars novas já no arquivo de ambiente do servidor **e** no `.example` do PR
+- [ ] Plano de rollback claro, com o SHA anterior anotado
 - [ ] Alguém além de você sabe que o deploy está acontecendo
+
+> [!NOTE]
+> As duas primeiras linhas já disseram "CI verde na `main`" e "validado em homologação". Nenhuma das duas existe no nosso plano, e checklist que treina o time a marcar caixinha falsa estraga o checklist inteiro. O que existe está em [Padrão de deploy](deploy-standard.md#o-que-este-padrão-não-resolve).
 
 ### Migration em produção
 
@@ -68,6 +81,8 @@ Reverter cedo é sempre melhor que investigar demorando. Ordem:
 3. **Só então** investigar, com calma
 
 Se a migration não for reversível, o rollback de código pode não bastar — é por isso que migration reversível é obrigatória.
+
+Como o rollback acontece na prática, e por que ele reverte **imagem** e nunca **migration**: [Padrão de deploy](deploy-standard.md#quando-falha).
 
 ---
 
