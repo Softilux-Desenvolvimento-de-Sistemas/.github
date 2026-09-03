@@ -93,6 +93,7 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 | [Monorepo](engineering/monorepo.md) | Por que é o padrão, app × package, quando NÃO usar |
 | [Contexto de agente](engineering/agent-context.md) | O que vai no `AGENTS.md`, e quando vira skill |
 | [Deploy e incidentes](engineering/deploy-and-incidents.md) | Como subir e o que fazer quando cai |
+| [Padrão de deploy](engineering/deploy-standard.md) | O mecanismo: merge é deploy, o contrato de cada repo, a VM compartilhada |
 
 ### 📋 [Templates](templates/)
 
@@ -104,6 +105,7 @@ Modelos prontos para copiar.
 | [Retrospectiva](templates/retro-template.md) | Roteiro da retro |
 | [ADR](templates/adr-template.md) | Registro de decisão de arquitetura |
 | [AGENTS.md](templates/agents-template.md) | Instrução para agente de IA |
+| [Deploy](templates/deploy-template.md) | Os quatro arquivos que fazem um repo subir pelo padrão |
 
 ---
 
@@ -140,6 +142,9 @@ Modelos prontos para copiar.
 
 **"O que preciso num repositório novo?"**
 → [Checklist](workflow/repo-standards.md#checklist-de-repositório-novo)
+
+**"Como isto sobe para produção?"**
+→ [Padrão de deploy](engineering/deploy-standard.md)
 
 </td></tr>
 </table>
