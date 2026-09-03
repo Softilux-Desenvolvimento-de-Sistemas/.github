@@ -8,7 +8,6 @@ Modelos prontos para copiar. Cada um traz o template e as notas de uso.
 | [Retrospectiva](retro-template.md) | Roteiro da retro | Documento da sprint |
 | [ADR](adr-template.md) | Registro de decisão de arquitetura | `docs/adr/` do repo, ou do app |
 | [AGENTS.md](agents-template.md) | Instrução para agente de IA | `AGENTS.md` da raiz e de cada app |
-| [Deploy](deploy-template.md) | Gatilho, contrato e checklist de deploy | `.github/workflows/`, `deploy.conf` e o compose de produção |
 
 ## O que chega sozinho, e o que não chega
 
@@ -20,13 +19,11 @@ O GitHub distribui automaticamente os *community health files* deste repositóri
 
 `.github/workflows/*` · `dependabot.yml` · `AGENTS.md` e `CLAUDE.md` · `.claude/skills/` · `README.md`
 
-Para esses, o veículo é um **repositório template** com a raiz de monorepo já montada — botão "Use this template" no GitHub, sem ferramenta nenhuma para manter. O conteúdo é o desta página mais os arquivos de configuração da raiz, com o catálogo vazio.
+Os arquivos de CI e de deploy estão em
+[Deploy](../engineering/deploy.md#aplicação-nova-passo-a-passo) — são quatro, e
+copiar de uma aplicação que já está no padrão é o caminho previsto.
 
-O workflow de deploy tem um segundo veículo, que **não** é cópia: os
-[modelos de workflow da organização](../../workflow-templates/) aparecem no botão
-"New workflow" do GitHub, em Actions, e o pipeline de verdade mora numa
-[action versionada](../../actions/deploy/README.md) — o que cada repo copia são 25
-linhas de gatilho, não a lógica.
+Para esses, o veículo é um **repositório template** com a raiz de monorepo já montada — botão "Use this template" no GitHub, sem ferramenta nenhuma para manter. O conteúdo é o desta página mais os arquivos de configuração da raiz, com o catálogo vazio.
 
 O texto normativo (as páginas de `devs/`) **não se distribui: se linka.** Sincronizar cópia de handbook para dentro dos repos é como handbook morre — a cópia diverge e ninguém sabe qual vale.
 
