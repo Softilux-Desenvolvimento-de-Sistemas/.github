@@ -1,0 +1,75 @@
+# Deploy de produção da Softilux, na própria VM.
+#
+# O pipeline é o `deploy.sh` ao lado; esta action é o contrato de entrada dele.
+# O padrão inteiro está em devs/engineering/deploy-standard.md.
+#
+# Um único step, de propósito: a trava de máquina vive num processo só, e partir
+# isto em `build`/`migrate`/`health` custaria a trava e o revert atômico — que
+# são o valor todo.
+name: Deploy na VM
+description: build, varredura de CVE, migration, subida e health check de um projeto compose, na própria máquina
+
+inputs:
+  sha:
+    description: SHA curto para ROLLBACK. Vazio sobe o HEAD da branch de deploy.
+    required: false
+    default: ''
+  mode:
+    description: "deploy | dry-run (só pré-condições) | doctor (só a máquina)"
+    required: false
+    default: deploy
+  deploy-root:
+    description: "Diretório da aplicação na VM. Vazio usa /srv/<nome-do-repositório>."
+    required: false
+    default: ''
+  config:
+    description: Caminho do deploy.conf, relativo ao diretório da aplicação.
+    required: false
+    default: deploy.conf
+  skip-scan:
+    description: Sobe sem varredura de CVE, assumindo o risco — fica escrito no log e no resumo.
+    required: false
+    default: 'false'
+  health-timeout:
+    description: Segundos esperando os serviços ficarem saudáveis.
+    required: false
+    default: '120'
+  lock-wait:
+    description: Segundos esperando a trava da máquina (outro deploy em curso).
+    required: false
+    default: '1800'
+  keep-images:
+    description: Quantos SHAs de imagem manter por aplicação. Cada um é um rollback possível.
+    required: false
+    default: '5'
+  min-free-disk:
+    description: GiB livres exigidos no diretório do docker antes do build.
+    required: false
+    default: '15'
+
+outputs:
+  deployed-sha:
+    description: O SHA que ficou no ar. Serve para o repositório acrescentar passos depois do deploy.
+    value: ${{ steps.deploy.outputs.deployed-sha }}
+
+runs:
+  using: composite
+  steps:
+    # `shell: bash` é obrigatório em composite action — sem ele o parse falha.
+    #
+    # ⚠️ Nada de `${{ }}` dentro do corpo do `run:`: o input `sha` vem de um campo
+    # de texto do `workflow_dispatch`, e interpolação dentro de shell é injeção de
+    # comando. Tudo entra por `env:`.
+    - id: deploy
+      shell: bash
+      run: bash "$GITHUB_ACTION_PATH/deploy.sh"
+      env:
+        DEPLOY_SHA: ${{ inputs.sha }}
+        DEPLOY_MODE: ${{ inputs.mode }}
+        DEPLOY_ROOT: ${{ inputs.deploy-root }}
+        DEPLOY_CONFIG: ${{ inputs.config }}
+        DEPLOY_SKIP_SCAN: ${{ inputs.skip-scan }}
+        DEPLOY_HEALTH_TIMEOUT: ${{ inputs.health-timeout }}
+        DEPLOY_LOCK_WAIT: ${{ inputs.lock-wait }}
+        DEPLOY_KEEP_IMAGES: ${{ inputs.keep-images }}
+        DEPLOY_MIN_FREE_DISK: ${{ inputs.min-free-disk }}

@@ -1,0 +1,6 @@
+{
+	"name": "Deploy na VM (padrão Softilux)",
+	"description": "Gatilho de deploy: push na branch principal dispara a action que sobe o projeto compose na VM. Precisa de deploy.conf no repositório e de um runner self-hosted.",
+	"iconName": "octicon rocket",
+	"categories": ["Deployment", "Docker"]
+}

@@ -46,7 +46,7 @@ Como o Obsidian guarda nota em markdown puro, sem criptografia própria, quatro 
 3. **Criptografia de disco ligada** — FileVault no macOS, BitLocker no Windows. Sem isso, notebook perdido é credencial perdida.
 4. **O vault é pessoal.** Ele guarda a *sua* cópia das credenciais que você já tem acesso. Não é canal de distribuição: credencial nova continua vindo do responsável do setor, nunca de um vault repassado.
 
-> O vault é para senha de ferramenta. Segredo de aplicação não entra ali: no seu desenvolvimento ele vive no `.env` do projeto, e em homologação ou produção vive no ambiente — GitHub Secrets ou a configuração do servidor, nunca num arquivo que passa pela sua máquina.
+> O vault é para senha de ferramenta. Segredo de aplicação não entra ali: no seu desenvolvimento ele vive no `.env` do projeto, e **em produção vive num arquivo de ambiente na própria VM**, com permissão `600` e dono `deploy`. Não usamos GitHub Secrets para segredo de produção — o pipeline roda na máquina que já tem o arquivo, então o segredo nunca passa pelo GitHub ([Padrão de deploy](../engineering/deploy-standard.md#segurança-o-que-sustenta-isto)).
 
 ## Planio — o que você precisa saber
 
@@ -78,7 +78,15 @@ Funciona porque não diz não, registra a demanda e move a decisão de prioridad
 | Ambiente | Para que serve | Quem pode subir |
 |---|---|---|
 | Local | Desenvolvimento | Todos |
-| Homologação | Validação com solicitante antes de produção | Todos, via merge em `main` |
-| Produção | Cliente real | Ver [Deploy e incidentes](../engineering/deploy-and-incidents.md) |
+| Produção | Cliente real | **Quem faz o merge** — push na `main` dispara o deploy |
+
+> [!WARNING]
+> **Não há homologação.** O plano contratado não nos dá o segundo ambiente, então
+> o primeiro a exercitar uma mudança é o cliente. É a dívida mais cara do nosso
+> desenho, e ela é de plano, não de descuido — está registrada em
+> [Padrão de deploy](../engineering/deploy-standard.md#o-que-este-padrão-não-resolve).
+>
+> Consequência prática: **validar com o solicitante acontece antes do merge**, não
+> depois.
 
 URLs, painéis e credenciais de cada ambiente: com o responsável do setor.
