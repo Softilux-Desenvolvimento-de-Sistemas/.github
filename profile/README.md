@@ -42,7 +42,7 @@
 </tr>
 <tr>
 <td align="center">⚙️<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/engineering">Engenharia</a></b></td>
-<td>Git, code review, testes, monorepo, contexto de agente, padrão de deploy, incidentes</td>
+<td>Git, code review, testes, monorepo, contexto de agente, deploy e incidentes</td>
 </tr>
 <tr>
 <td align="center">📋<br/><b><a href="https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/tree/main/devs/templates">Templates</a></b></td>

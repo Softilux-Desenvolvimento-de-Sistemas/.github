@@ -21,10 +21,11 @@ Quando isso não acontece, o README está incompleto — não o dev.
 | `docker-compose.yml` | Serviços locais (banco, cache, etc.) |
 | `.husky/` | `pre-commit` e `pre-push`, **só na raiz** |
 | `.github/dependabot.yml` | Atualização de dependência |
-| `.github/workflows/deploy.yml` | O gatilho do deploy ([template](../templates/deploy-template.md)) |
-| `deploy.conf` | Os fatos de deploy da aplicação |
-| `docker-compose-prod.yml` | Os serviços de produção ([contrato](../engineering/deploy-standard.md#o-contrato-do-repositório)) |
+| `.github/workflows/ci.yml` | A checagem do PR ([Deploy](../engineering/deploy.md)) |
+| `.github/workflows/deploy.yml` | O gatilho do deploy — 25 linhas, chama o script |
+| `scripts/deploy.sh` | **O pipeline.** As 4 constantes do topo são o que muda entre apps |
 | `deploy-checklist.md` | A conferência à mão depois de subir |
+| `docker-compose-prod.yml` | Os serviços de produção ([contrato](../engineering/deploy.md#o-contrato-do-compose)) |
 | `.vscode/extensions.json` | Extensões recomendadas |
 | `docs/adr/` | [Decisões do workspace](../templates/adr-template.md) |
 
@@ -88,9 +89,14 @@ O setup específico, os scripts, e a seção que mais importa:
 
 **README é para humano subir o projeto; `AGENTS.md` é para agente escrever código.** Os dois falam de armadilha, mas a do README é "não consegui rodar" e a do `AGENTS.md` é "escrevi errado". Linke um no outro em vez de duplicar.
 
-## Os hooks são a única verificação automática
+## O que verifica, e em que ordem
 
-O que roda no servidor é o **deploy** ([Padrão de deploy](../engineering/deploy-standard.md)) — ele **sobe**, não **verifica**. Não há pipeline de checagem: o que pega erro antes do review são os hooks locais, e eles vivem só na raiz do repositório.
+Três camadas, da mais rápida para a mais lenta: os **hooks locais** (segundos, na
+sua máquina), o **CI do PR** (minutos, em runner hospedado do GitHub) e o
+**deploy** no merge, que roda na VM. As duas últimas estão em
+[Deploy](../engineering/deploy.md).
+
+Os hooks são a primeira linha, e vivem só na raiz do repositório.
 
 | Hook | O que roda |
 |---|---|
@@ -100,7 +106,7 @@ O que roda no servidor é o **deploy** ([Padrão de deploy](../engineering/deplo
 Instalados pelo `pnpm install` (script `prepare` da raiz). Clonou e o hook não disparou? Rode `pnpm exec husky` — ele grava `core.hooksPath=.husky/_`, que é config local e não vem no clone.
 
 > [!IMPORTANT]
-> `git commit --no-verify` existe para emergência, não para pressa. Sem CI, pular o hook é pular a **única** checagem automática que temos — e, como **merge é deploy**, o próximo a descobrir o erro é quem revisa, ou o cliente.
+> `git commit --no-verify` existe para emergência, não para pressa. O CI ainda pega no PR, mas descobrir no Actions o que o hook mostraria em 30 segundos é tempo de todo mundo — e, como **merge é deploy**, o que passa pelo review chega no cliente.
 
 Se o projeto tem um artefato gerado que precisa ficar em dia (um `openapi.json`, tipos derivados de schema), vale um step no `pre-push` que regenera e falha se o versionado divergir. É a checagem que mais se paga num monorepo, porque é a que prova que os dois apps continuam compatíveis.
 
@@ -134,7 +140,7 @@ O mapa de quais produtos existem, quem é owner e onde cada um roda fica nos can
 
 ## Checklist de repositório novo
 
-Comece pelo template de monorepo — ele já traz a raiz montada. O que confirmar:
+Comece pelo [template de monorepo](../templates/monorepo/) — ele já traz a raiz montada, e o `README.md` dele é o roteiro, inclusive para pedir a um agente. O que confirmar:
 
 **Uma vez, na raiz**
 
@@ -147,7 +153,7 @@ Comece pelo template de monorepo — ele já traz a raiz montada. O que confirma
 - [ ] `README.md` mapa
 - [ ] `AGENTS.md` + `CLAUDE.md` ponteiro
 - [ ] `dependabot.yml`
-- [ ] Os quatro arquivos de deploy, se a aplicação vai para a VM ([template](../templates/deploy-template.md))
+- [ ] Os arquivos de deploy, se a aplicação vai para a VM ([passo a passo](../engineering/deploy.md#aplicação-nova-passo-a-passo))
 
 **Por app**
 

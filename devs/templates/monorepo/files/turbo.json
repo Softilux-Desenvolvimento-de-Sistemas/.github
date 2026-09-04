@@ -1,0 +1,48 @@
+{
+	"$schema": "https://turborepo.dev/schema.json",
+	"ui": "tui",
+	"globalDependencies": [
+		"pnpm-workspace.yaml",
+		"biome.json",
+		".nvmrc",
+		"packages/typescript-config/*.json"
+	],
+	"globalEnv": ["NODE_ENV"],
+	"globalPassThroughEnv": ["CI", "TZ", "FORCE_COLOR"],
+	"tasks": {
+		"db:generate": {
+			"cache": false,
+			"inputs": ["prisma/schema.prisma", "prisma.config.ts"]
+		},
+		"build": {
+			"dependsOn": ["^build", "db:generate"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				"!**/*.md",
+				"!**/*.spec.ts",
+				"!.env*",
+				"!docs/**"
+			],
+			"outputs": ["dist/**", ".next/**", "!.next/cache/**"]
+		},
+		"typecheck": {
+			"dependsOn": ["^build", "db:generate"],
+			"inputs": ["$TURBO_DEFAULT$", "!**/*.md", "!docs/**"],
+			"outputs": []
+		},
+		"lint": {
+			"inputs": ["$TURBO_DEFAULT$", "!docs/**"],
+			"outputs": []
+		},
+		"test": {
+			"dependsOn": ["db:generate"],
+			"cache": false
+		},
+		"dev": {
+			"dependsOn": ["db:generate"],
+			"cache": false,
+			"persistent": true,
+			"interactive": true
+		}
+	}
+}

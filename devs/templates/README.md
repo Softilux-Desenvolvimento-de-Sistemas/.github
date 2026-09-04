@@ -4,11 +4,11 @@ Modelos prontos para copiar. Cada um traz o template e as notas de uso.
 
 | Página | O que é | Onde vive |
 |---|---|---|
+| [Monorepo](monorepo/) | A raiz do monorepo, em arquivos prontos | Raiz do repositório |
 | [Pull request](pull-request-template.md) | Template de PR | `.github/pull_request_template.md` de cada repo |
 | [Retrospectiva](retro-template.md) | Roteiro da retro | Documento da sprint |
 | [ADR](adr-template.md) | Registro de decisão de arquitetura | `docs/adr/` do repo, ou do app |
 | [AGENTS.md](agents-template.md) | Instrução para agente de IA | `AGENTS.md` da raiz e de cada app |
-| [Deploy](deploy-template.md) | Gatilho, contrato e checklist de deploy | `.github/workflows/`, `deploy.conf` e o compose de produção |
 
 ## O que chega sozinho, e o que não chega
 
@@ -20,13 +20,11 @@ O GitHub distribui automaticamente os *community health files* deste repositóri
 
 `.github/workflows/*` · `dependabot.yml` · `AGENTS.md` e `CLAUDE.md` · `.claude/skills/` · `README.md`
 
-Para esses, o veículo é um **repositório template** com a raiz de monorepo já montada — botão "Use this template" no GitHub, sem ferramenta nenhuma para manter. O conteúdo é o desta página mais os arquivos de configuração da raiz, com o catálogo vazio.
+Os arquivos de deploy estão em
+[Deploy](../engineering/deploy.md#aplicação-nova-passo-a-passo) — são quatro, e
+copiar de uma aplicação que já está no padrão é o caminho previsto.
 
-O workflow de deploy tem um segundo veículo, que **não** é cópia: os
-[modelos de workflow da organização](../../workflow-templates/) aparecem no botão
-"New workflow" do GitHub, em Actions, e o pipeline de verdade mora numa
-[action versionada](../../actions/deploy/README.md) — o que cada repo copia são 25
-linhas de gatilho, não a lógica.
+Os da raiz do monorepo — configuração, hooks, `dependabot.yml` e o **modelo do `ci.yml`**, que é um daqueles quatro — estão em [Monorepo](monorepo/), em arquivos de verdade e não em bloco de código: dá para baixar por URL, e é isso que permite pedir a um agente para montar a raiz, ou para conferir a de um repositório que já existe. Um **repositório template** com o botão "Use this template" continua sendo uma opção, e o conteúdo dele seria exatamente aquele diretório.
 
 O texto normativo (as páginas de `devs/`) **não se distribui: se linka.** Sincronizar cópia de handbook para dentro dos repos é como handbook morre — a cópia diverge e ninguém sabe qual vale.
 

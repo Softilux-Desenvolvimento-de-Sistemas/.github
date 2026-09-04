@@ -1,9 +1,8 @@
 # Deploy e incidentes
 
 Esta página é o **processo**: quando pode subir, o que conferir, o que fazer
-quando cai. O **mecanismo** — o que dispara o deploy, o contrato que cada
-repositório cumpre e o que ele não resolve — está em
-[Padrão de deploy](deploy-standard.md).
+quando cai. O **mecanismo** — o que dispara o deploy, o que o CI verifica, e o
+passo a passo de aplicação nova — está em [Deploy](deploy.md).
 
 ## Deploy
 
@@ -20,7 +19,7 @@ repositório cumpre e o que ele não resolve — está em
 A regra não é superstição: é ter gente acordada e disponível quando o problema aparecer. Ninguém quer descobrir o bug no sábado de manhã.
 
 > [!IMPORTANT]
-> **Merge é deploy.** Push na branch principal dispara a subida sozinho ([Padrão de deploy](deploy-standard.md)), então a janela acima se aplica ao **botão de merge**. Não existe mais "mergeia agora, sobe depois": PR aprovado na sexta às 17h espera segunda.
+> **Merge é deploy.** Push na branch principal dispara a subida sozinho ([Deploy](deploy.md)), então a janela acima se aplica ao **botão de merge**. Não existe "mergeia agora, sobe depois": PR aprovado na sexta às 17h espera segunda.
 >
 > Quem faz o merge é o autor — logo, a janela é responsabilidade de quem aperta o botão.
 
@@ -40,15 +39,12 @@ Quem entra em plantão de deploy compensa as horas. Subir de madrugada é trabal
 
 ### Antes de subir
 
-- [ ] Lint, typecheck, build e teste limpos **na sua máquina** — não existe CI que os rode ([hooks locais](../workflow/repo-standards.md#os-hooks-são-a-única-verificação-automática))
+- [ ] **CI verde no PR** — lint, typecheck, build, contrato e testes ([Deploy](deploy.md#como-funciona))
 - [ ] Validado com o solicitante **antes do merge** — não há homologação, então o merge já é o cliente
 - [ ] Migration revisada, reversível, e que funciona **com a versão anterior do código**
 - [ ] Env vars novas já no arquivo de ambiente do servidor **e** no `.example` do PR
 - [ ] Plano de rollback claro, com o SHA anterior anotado
 - [ ] Alguém além de você sabe que o deploy está acontecendo
-
-> [!NOTE]
-> As duas primeiras linhas já disseram "CI verde na `main`" e "validado em homologação". Nenhuma das duas existe no nosso plano, e checklist que treina o time a marcar caixinha falsa estraga o checklist inteiro. O que existe está em [Padrão de deploy](deploy-standard.md#o-que-este-padrão-não-resolve).
 
 ### Migration em produção
 
@@ -82,7 +78,7 @@ Reverter cedo é sempre melhor que investigar demorando. Ordem:
 
 Se a migration não for reversível, o rollback de código pode não bastar — é por isso que migration reversível é obrigatória.
 
-Como o rollback acontece na prática, e por que ele reverte **imagem** e nunca **migration**: [Padrão de deploy](deploy-standard.md#quando-falha).
+Como o rollback acontece na prática, e por que ele reverte **imagem** e nunca **migration**: [Deploy](deploy.md#quando-falha).
 
 ---
 

@@ -1,0 +1,65 @@
+# ─── deps ────────────────────────────────────────────────────────────────────
+node_modules/
+.pnp
+.pnp.*
+
+# ─── build output ────────────────────────────────────────────────────────────
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# ─── turbo ───────────────────────────────────────────────────────────────────
+.turbo/
+
+# ─── tests ───────────────────────────────────────────────────────────────────
+coverage/
+.nyc_output/
+
+# ─── env ─────────────────────────────────────────────────────────────────────
+# `.env.*` cobre o `.env.prod` que o compose de produção exige. Listar só `.env`
+# é como um `git add -A` commita segredo de produção.
+#
+# A negação é `!.env*.example`, com o glob no MEIO. `!.env.example` sozinho
+# desfaz só aquele nome exato, e um `.env.prod.example` — versionado de
+# propósito, sem valor nenhum — fica ignorado em silêncio: `git add` dele não
+# reclama, e o arquivo simplesmente não entra no commit.
+.env
+.env.*
+!.env*.example
+
+# ─── estado do deploy (rede de segurança) ────────────────────────────────────
+# O estado do deploy vive FORA da árvore de trabalho, em `/srv/.deploy/` na VM —
+# arquivo criado aqui pelo próprio deploy suja a árvore, e o deploy seguinte
+# recusa subir de árvore suja (o primeiro funciona, o segundo falha). Estas
+# linhas ficam como rede. Note que `*.log` NÃO casa com `.deploy-log`.
+.current-tag
+.deploy-log
+.deploy-lock
+
+# ─── logs ────────────────────────────────────────────────────────────────────
+logs
+*.log
+npm-debug.log*
+pnpm-debug.log*
+
+# ─── runtime / diagnostics ───────────────────────────────────────────────────
+pids
+*.pid
+*.seed
+*.pid.lock
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# ─── OS / editores ───────────────────────────────────────────────────────────
+.DS_Store
+*.pem
+.idea/
+*.sublime-workspace
+
+# ─── ferramentas de agente (por dev) ─────────────────────────────────────────
+.claude/settings.local.json
+
+# ─── temp ────────────────────────────────────────────────────────────────────
+.temp
+.tmp

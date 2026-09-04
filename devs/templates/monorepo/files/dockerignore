@@ -1,0 +1,17 @@
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+**/coverage
+.git
+.github
+**/.env
+**/.env.*
+!**/.env.example
+**/test
+**/*.md
+!apps/*/README.md
+.vscode
+.zed
+.claude
+docs

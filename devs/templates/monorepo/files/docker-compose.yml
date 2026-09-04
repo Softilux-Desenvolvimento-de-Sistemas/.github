@@ -1,0 +1,45 @@
+# Os serviços locais de desenvolvimento, na RAIZ do monorepo: um `pnpm install`
+# e um `docker compose up -d` põem o produto inteiro de pé.
+#
+# O `name:` é fixo de propósito — é ele que faz o compose reusar os volumes
+# `<produto>_pgdata` / `<produto>_redisdata`. Mudar o nome cria volumes novos e
+# vazios, "perdendo" o banco de desenvolvimento.
+name: <produto>
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: <produto>
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: app
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    # Healthcheck em TODO serviço: sem ele o app sobe antes do banco aceitar
+    # conexão, e a falha aparece como erro do app.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d <produto>"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    command: redis-server --appendonly yes
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+
+volumes:
+  pgdata:
+  redisdata:

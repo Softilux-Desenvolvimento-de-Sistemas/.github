@@ -93,7 +93,7 @@ O padrão técnico: como se escreve, revisa, testa e sobe código aqui.
 | [Monorepo](engineering/monorepo.md) | Por que é o padrão, app × package, quando NÃO usar |
 | [Contexto de agente](engineering/agent-context.md) | O que vai no `AGENTS.md`, e quando vira skill |
 | [Deploy e incidentes](engineering/deploy-and-incidents.md) | Como subir e o que fazer quando cai |
-| [Padrão de deploy](engineering/deploy-standard.md) | O mecanismo: merge é deploy, o contrato de cada repo, a VM compartilhada |
+| [Deploy](engineering/deploy.md) | CI no PR, deploy no merge, aplicação nova na VM e manutenção |
 
 ### 📋 [Templates](templates/)
 
@@ -101,11 +101,11 @@ Modelos prontos para copiar.
 
 | Página | O que é |
 |---|---|
+| [Monorepo](templates/monorepo/) | A raiz do monorepo, em arquivos prontos |
 | [Pull request](templates/pull-request-template.md) | Template de PR |
 | [Retrospectiva](templates/retro-template.md) | Roteiro da retro |
 | [ADR](templates/adr-template.md) | Registro de decisão de arquitetura |
 | [AGENTS.md](templates/agents-template.md) | Instrução para agente de IA |
-| [Deploy](templates/deploy-template.md) | Os quatro arquivos que fazem um repo subir pelo padrão |
 
 ---
 
@@ -143,8 +143,11 @@ Modelos prontos para copiar.
 **"O que preciso num repositório novo?"**
 → [Checklist](workflow/repo-standards.md#checklist-de-repositório-novo)
 
-**"Como isto sobe para produção?"**
-→ [Padrão de deploy](engineering/deploy-standard.md)
+**"Como subo uma aplicação nova para a VM?"**
+→ [Deploy, passo a passo](engineering/deploy.md#aplicação-nova-passo-a-passo)
+
+**"Como peço a um agente para seguir o nosso padrão?"**
+→ [Monorepo: a raiz pronta](templates/monorepo/#peça-ao-agente)
 
 </td></tr>
 </table>
