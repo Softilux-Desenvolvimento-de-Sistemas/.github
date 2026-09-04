@@ -1,0 +1,150 @@
+# A checagem do PR. É o "passa nos testes" do fluxo:
+#
+#   branch → PR → **este workflow** → review → merge → deploy
+#
+# Ele não BLOQUEIA o merge: branch protection não está no nosso plano do GitHub.
+# Ele é o sinal para quem revisa — e a regra de não mergear com o CI vermelho é
+# acordo do time, igual ao resto da proteção da `main`.
+#
+# Roda em runner HOSPEDADO, não na VM, de propósito: suíte que cria e DROPA
+# banco não pode rodar perto da máquina de produção.
+name: ci
+
+on:
+  pull_request:
+    branches: [main]
+
+# Push novo no PR cancela a execução anterior — o oposto do deploy, onde
+# cancelar deixaria produção em estado indefinido. Aqui é só economia de minuto.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+env:
+  TURBO_TELEMETRY_DISABLED: 1
+
+jobs:
+  checks:
+    name: lint · typecheck · build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      # Só necessário se o repositório tem ORM cuja config resolve a variável ao
+      # CARREGAR o arquivo (o `prisma.config.ts` do Prisma 7 é assim): o
+      # `generate` não conecta em banco, mas o carregamento falha sem ela. Como
+      # `typecheck` e `build` dependem de `db:generate` — o client precisa
+      # existir antes de qualquer `tsc` —, os dois passos precisam da variável.
+      #
+      # Placeholder de propósito. Localmente isso passa despercebido porque o
+      # `.env` do app existe.
+      DATABASE_URL: postgresql://placeholder:placeholder@localhost:5432/placeholder
+
+    steps:
+      # Sem `fetch-depth: 0`: aqui não se usa `turbo --affected` (isso é o
+      # `pre-push`), então o clone raso basta e é mais rápido.
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # Uma invocação só, da raiz: o modo monorepo do Biome aplica as configs
+      # aninhadas de cada app.
+      #
+      # Nunca `turbo run lint` aqui: o script `lint` de um app costuma ser
+      # `biome check --write`, que ESCREVE arquivo. Em CI isso passaria calado e
+      # não verificaria nada.
+      - name: Biome
+        run: pnpm exec biome ci .
+
+      - name: Typecheck
+        run: pnpm turbo run typecheck
+
+      - name: Build
+        run: pnpm turbo run build
+
+  # ─────────────────────────────────────────────────────────────────────────
+  # APAGUE ESTE JOB se o repositório ainda não tem artefato de contrato nem
+  # suíte que precise de serviço. Ele é o molde do que mais se paga num
+  # monorepo: provar, no PR, que os dois apps continuam compatíveis.
+  #
+  # Ajuste os nomes: `openapi` é a task que regenera o artefato, e os dois
+  # caminhos são o artefato da api e a cópia que o front consome.
+  # ─────────────────────────────────────────────────────────────────────────
+  contract:
+    name: contrato · suíte da api
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    services:
+      postgres:
+        image: postgres:17-alpine
+        env:
+          POSTGRES_DB: <produto>
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd "pg_isready -U postgres -d <produto>"
+          --health-interval 10s --health-timeout 3s --health-retries 5
+
+      redis:
+        image: redis:7-alpine
+        ports: ['6379:6379']
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s --health-timeout 3s --health-retries 5
+
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/<produto>
+      REDIS_URL: redis://localhost:6379
+      # Uma linha por variável que o schema de env exige sem default. Todas
+      # placeholder — a suíte não sai para a rede. Segredo costuma ter piso de
+      # tamanho, então placeholder curto reprova na validação.
+
+    steps:
+      - uses: actions/checkout@v5
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v5
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      # ─── O contrato entre os apps ────────────────────────────────────────
+      #
+      # Regenera o artefato a partir da origem e falha se o versionado estiver
+      # defasado. Sem isso, contrato defasado só aparece quando o front quebra.
+      #
+      # A mensagem de erro diz o COMANDO que conserta. Guarda que só reprova,
+      # sem dizer o que fazer, custa uma ida ao código de quem revisa.
+      - name: Migration (o gerador do contrato sobe a aplicação inteira)
+        run: pnpm --filter=./apps/api run db:migrate:deploy
+
+      - name: Regenerar o artefato
+        run: pnpm turbo run openapi --filter=./apps/api
+
+      - name: O contrato está em dia?
+        run: |
+          if ! git diff --exit-code --stat -- apps/api/openapi.json; then
+            echo "::error::apps/api/openapi.json defasado. Rode 'pnpm turbo run openapi --filter=./apps/api' e commite o diff."
+            exit 1
+          fi
+
+          if ! diff -q apps/api/openapi.json apps/web/openapi.json; then
+            echo "::error::apps/web/openapi.json divergiu do da api. Rode 'pnpm -C apps/web run api:contract' em PR próprio."
+            exit 1
+          fi
+
+      # `--concurrency=1` não é opcional quando os bancos de teste derivam do
+      # `DATABASE_URL`: duas suítes ao mesmo tempo dropam o banco uma da outra.
+      - name: Suíte da api
+        env:
+          NODE_ENV: test
+        run: pnpm turbo run test --filter=./apps/api --concurrency=1

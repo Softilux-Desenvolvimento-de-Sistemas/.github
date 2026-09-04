@@ -1,0 +1,17 @@
+version: 2
+updates:
+  # O Dependabot entende workspaces do pnpm a partir da raiz. O que ele NÃO
+  # entende é `catalog:` — bump de item catalogado é manual, no
+  # pnpm-workspace.yaml, e vale marcar como tarefa recorrente da sprint.
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types: [minor, patch]
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly

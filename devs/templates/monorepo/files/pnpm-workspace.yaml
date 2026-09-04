@@ -1,0 +1,48 @@
+packages:
+  - apps/*
+  - packages/*
+
+# ─── Catalog ────────────────────────────────────────────────────────────────
+# Fixa a versão de uma dependência para todos os pacotes. A regra de entrada, e
+# o porquê, estão em devs/engineering/monorepo.md#o-gerenciador-é-o-pnpm: usada
+# por mais de um pacote E duas cópias causariam um bug de verdade, não só disco
+# a mais. Dependência de um pacote só fica no package.json dele.
+#
+# O Dependabot NÃO entende `catalog:` — bump de item catalogado é manual.
+catalog:
+  # Pin EXATO de propósito: patch do Biome muda saída de formatação, e com range
+  # dois devs formatam o mesmo arquivo diferente. Mantenha em par com o
+  # `$schema` do biome.json.
+  '@biomejs/biome': 2.5.7
+
+  # Versões diferentes de tsc sobre um packages/typescript-config compartilhado
+  # divergem em checagem.
+  typescript: ^5.9.3
+
+  # Mantenha o major em par com o .nvmrc.
+  '@types/node': ^24.10.1
+
+# Catálogos nomeados, para o que é de uma stack só. Exemplo do que se resolve
+# aqui: o CLI e o client de um ORM têm que casar exatamente, e catalogados
+# juntos um bump não consegue dessincronizar os dois.
+#
+# catalogs:
+#   react19:
+#     react: 19.2.4
+#     react-dom: 19.2.4
+
+# ─── Aprovação de build scripts ─────────────────────────────────────────────
+# pnpm 11: a chave é `allowBuilds`, um MAPA. `onlyBuiltDependencies`,
+# `neverBuiltDependencies` e `ignoredBuiltDependencies` foram REMOVIDOS na v11 —
+# se ficarem aqui são ignorados em silêncio. `strictDepBuilds` é true por
+# padrão, então o install FALHA (não avisa) em script não aprovado.
+#
+# Meça, não chute: aprove o que o install pedir, e escreva na linha o que aquele
+# script faz. `false` é decisão registrada, não omissão.
+allowBuilds: {}
+#   sharp: true                # otimização de imagem em produção
+#   '@scarf/scarf': false      # telemetria; nada depende dela
+
+# Exigido pelo `pnpm deploy` sem --legacy, que é o que os Dockerfiles usam para
+# recortar o app do workspace.
+injectWorkspacePackages: true
