@@ -101,6 +101,7 @@ Modelos prontos para copiar.
 
 | Página | O que é |
 |---|---|
+| [Monorepo](templates/monorepo/) | A raiz do monorepo, em arquivos prontos |
 | [Pull request](templates/pull-request-template.md) | Template de PR |
 | [Retrospectiva](templates/retro-template.md) | Roteiro da retro |
 | [ADR](templates/adr-template.md) | Registro de decisão de arquitetura |
@@ -144,6 +145,9 @@ Modelos prontos para copiar.
 
 **"Como subo uma aplicação nova para a VM?"**
 → [Deploy, passo a passo](engineering/deploy.md#aplicação-nova-passo-a-passo)
+
+**"Como peço a um agente para seguir o nosso padrão?"**
+→ [Monorepo: a raiz pronta](templates/monorepo/#peça-ao-agente)
 
 </td></tr>
 </table>

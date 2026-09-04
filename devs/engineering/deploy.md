@@ -160,7 +160,7 @@ Copie de uma aplicação que já está no padrão e ajuste:
 |---|---|
 | `scripts/deploy.sh` | as **4 constantes** do topo |
 | `.github/workflows/deploy.yml` | nada, salvo a label da máquina |
-| `.github/workflows/ci.yml` | o nome do banco de teste e, se a stack for outra, o serviço |
+| `.github/workflows/ci.yml` | o nome do banco de teste e, se a stack for outra, o serviço. O modelo é o do [template de monorepo](../templates/monorepo/) |
 | `deploy-checklist.md` | o que provar depois de subir, nesta aplicação |
 
 As quatro constantes:

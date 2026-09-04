@@ -4,6 +4,7 @@ Modelos prontos para copiar. Cada um traz o template e as notas de uso.
 
 | Página | O que é | Onde vive |
 |---|---|---|
+| [Monorepo](monorepo/) | A raiz do monorepo, em arquivos prontos | Raiz do repositório |
 | [Pull request](pull-request-template.md) | Template de PR | `.github/pull_request_template.md` de cada repo |
 | [Retrospectiva](retro-template.md) | Roteiro da retro | Documento da sprint |
 | [ADR](adr-template.md) | Registro de decisão de arquitetura | `docs/adr/` do repo, ou do app |
@@ -19,11 +20,11 @@ O GitHub distribui automaticamente os *community health files* deste repositóri
 
 `.github/workflows/*` · `dependabot.yml` · `AGENTS.md` e `CLAUDE.md` · `.claude/skills/` · `README.md`
 
-Os arquivos de CI e de deploy estão em
+Os arquivos de deploy estão em
 [Deploy](../engineering/deploy.md#aplicação-nova-passo-a-passo) — são quatro, e
 copiar de uma aplicação que já está no padrão é o caminho previsto.
 
-Para esses, o veículo é um **repositório template** com a raiz de monorepo já montada — botão "Use this template" no GitHub, sem ferramenta nenhuma para manter. O conteúdo é o desta página mais os arquivos de configuração da raiz, com o catálogo vazio.
+Os da raiz do monorepo — configuração, hooks, `dependabot.yml` e o **modelo do `ci.yml`**, que é um daqueles quatro — estão em [Monorepo](monorepo/), em arquivos de verdade e não em bloco de código: dá para baixar por URL, e é isso que permite pedir a um agente para montar a raiz, ou para conferir a de um repositório que já existe. Um **repositório template** com o botão "Use this template" continua sendo uma opção, e o conteúdo dele seria exatamente aquele diretório.
 
 O texto normativo (as páginas de `devs/`) **não se distribui: se linka.** Sincronizar cópia de handbook para dentro dos repos é como handbook morre — a cópia diverge e ninguém sabe qual vale.
 

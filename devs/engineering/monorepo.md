@@ -24,6 +24,10 @@ produto inteiro de pé.
 └── docker-compose.yml
 ```
 
+Esses arquivos estão prontos para copiar em
+[Monorepo: a raiz pronta](../templates/monorepo/), com o roteiro para montar a
+raiz à mão ou pedindo a um agente.
+
 **App** é o que tem deploy próprio. **Package** é o que é importado. Um package só
 existe quando **dois** apps precisam dele — antes disso, o código mora no app que o
 usa. Package criado por antecipação é abstração sem segundo usuário.
@@ -93,6 +97,7 @@ O que morde depois do enxerto, medido:
 
 | Assunto | Onde |
 |---|---|
+| Os arquivos da raiz, prontos para copiar | [Monorepo: a raiz pronta](../templates/monorepo/) |
 | O que tem que existir na raiz e em cada app | [Padrão de repositório](../workflow/repo-standards.md) |
 | `AGENTS.md` da raiz e por app | [Contexto de agente](agent-context.md) |
 | ADR do workspace × ADR do app | [Modelo de ADR](../templates/adr-template.md) |

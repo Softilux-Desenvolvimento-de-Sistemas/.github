@@ -140,7 +140,7 @@ O mapa de quais produtos existem, quem é owner e onde cada um roda fica nos can
 
 ## Checklist de repositório novo
 
-Comece pelo template de monorepo — ele já traz a raiz montada. O que confirmar:
+Comece pelo [template de monorepo](../templates/monorepo/) — ele já traz a raiz montada, e o `README.md` dele é o roteiro, inclusive para pedir a um agente. O que confirmar:
 
 **Uma vez, na raiz**
 
