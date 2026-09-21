@@ -16,12 +16,23 @@ Se você não vai conseguir revisar no prazo, diga no canal para outra pessoa pe
 
 ## Quem revisa
 
-- 1 aprovação é o mínimo
+- 1 aprovação é o mínimo, e **o GitHub não deixa ninguém aprovar o próprio PR** — nem quando você é o único code owner daquele caminho
 - Quem revisa é um **sênior do projeto**. Migration, pipeline e mudança de infra, sempre
 - Ninguém pegou o PR? Cobre no grupo. Persistindo, o gestor designa o revisor — PR parado por falta de dono é problema do time, não de quem abriu
 - Júnior pode e deve revisar PR de sênior. Aprender a ler código dos outros é metade da senioridade
 
-> **Sem `CODEOWNERS`, quem marca o revisor é o autor.** Num monorepo, diga qual app o PR toca — ninguém é notificado por caminho de arquivo. Ver [Padrão de repositório](../workflow/repo-standards.md#quem-revisa).
+> **Quem o GitHub pede é o code owner, e ele é pedido sozinho.** Ninguém marca ninguém, e não é mais preciso dizer no corpo qual app o PR toca. Ver [CODEOWNERS](../workflow/repo-standards.md#codeowners).
+
+**Push novo invalida a aprovação que já veio.** Duas consequências práticas: aprove **por último**, depois que o autor parar de empurrar; e o botão *Update branch*, quando a `main` andou, conta como push — o PR volta a precisar de aprovação.
+
+### Quando o gestor mergeia sem aprovação
+
+Owner da organização tem bypass e consegue mergear o próprio PR. Isso existe para a equipe pequena não travar, não para pular review por pressa. O acordo:
+
+- **Feature comum:** mergeie à vontade
+- **`.github/`, script de deploy, `Dockerfile`, compose de produção, migration:** peça revisão mesmo podendo passar direto. Revisar esses caminhos é controle de acesso, não code review — quem mergeia neles executa código na máquina de produção
+
+O uso do bypass fica registrado no PR e no audit log da organização.
 
 ## Como revisar
 

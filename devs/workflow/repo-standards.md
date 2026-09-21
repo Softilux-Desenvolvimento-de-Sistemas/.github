@@ -20,6 +20,7 @@ Quando isso não acontece, o README está incompleto — não o dev.
 | `.editorconfig` | Consistência entre editores |
 | `docker-compose.yml` | Serviços locais (banco, cache, etc.) |
 | `.husky/` | `pre-commit` e `pre-push`, **só na raiz** |
+| `.github/CODEOWNERS` | Quem o GitHub exige como revisor ([CODEOWNERS](#codeowners)) |
 | `.github/dependabot.yml` | Atualização de dependência |
 | `.github/workflows/ci.yml` | A checagem do PR ([Deploy](../engineering/deploy.md)) |
 | `.github/workflows/deploy.yml` | O gatilho do deploy — 25 linhas, chama o script |
@@ -112,9 +113,37 @@ Se o projeto tem um artefato gerado que precisa ficar em dia (um `openapi.json`,
 
 ## Quem revisa
 
-**Quem avalia o PR é o sênior do projeto** — quem conhece o produto de perto, não uma regra de caminho de arquivo. Não usamos `CODEOWNERS` (não está disponível no nosso plano para repositório privado), então **quem marca o revisor é o autor do PR**.
+**Quem avalia o PR é o sênior do projeto** — quem conhece o produto de perto. Quem o GitHub **exige** é o code owner, e os dois têm que ser a mesma pessoa.
 
-Num monorepo isso pede um cuidado a mais: o PR toca `apps/api/` ou `apps/web/`, e quem revisa tem que ser de quem mexe naquele app. Diga no título ou no corpo qual app mudou — sem CODEOWNERS, ninguém é notificado por caminho.
+### CODEOWNERS
+
+O ruleset `PROTECT-MAIN` exige review de code owner, então **todo repositório precisa de um `.github/CODEOWNERS`**. Sem o arquivo a exigência não tem em quem cair: a regra fica ligada e não faz nada.
+
+O mínimo, e o que basta na maioria dos repos:
+
+```
+*	@<org>/leads
+```
+
+Num monorepo com senioridade separada por app, dá para abrir por caminho. **O último padrão que casa é o que vale**, então o `*` vem primeiro:
+
+```
+*			@<org>/leads
+/apps/api/		@<org>/api-seniors
+/apps/web/		@<org>/web-seniors
+/.github/		@<org>/leads
+/scripts/deploy.sh	@<org>/leads
+```
+
+> [!WARNING]
+> **Um time só vale como code owner se tiver `Write` explícito naquele repositório e for `Visible` (não `Secret`).** Faltando qualquer um dos dois, o arquivo fica inválido e **o GitHub não avisa** — a exigência volta a ser decorativa, ou trava todo mundo.
+>
+> Confira: `gh api repos/<owner>/<repo>/codeowners/errors` tem que voltar `[]`. Esse endpoint lê a **branch default**, então antes do merge a conferência é abrir o arquivo na sua branch pela interface — ela mostra "This CODEOWNERS file is valid" no topo.
+
+O code owner é **pedido automaticamente**, ninguém marca ninguém. Some o antigo "diga no corpo qual app o PR toca" — quem é notificado agora é quem o caminho aponta.
+
+> [!IMPORTANT]
+> **Time de code owner com uma pessoa só é gargalo por desenho:** o PR de todo mundo para quando ela não está. É aceitável enquanto a equipe é pequena, mas a saída é promover um segundo code owner — nunca afrouxar a regra.
 
 Mudança nos arquivos de raiz (`pnpm-workspace.yaml`, `turbo.json`, `pnpm-lock.yaml`, `packages/`) afeta **todos** os apps de uma vez: essas passam por sênior e valem um aviso no canal.
 
@@ -142,6 +171,14 @@ O mapa de quais produtos existem, quem é owner e onde cada um roda fica nos can
 
 Comece pelo [template de monorepo](../templates/monorepo/) — ele já traz a raiz montada, e o `README.md` dele é o roteiro, inclusive para pedir a um agente. O que confirmar:
 
+**No GitHub, uma vez** — não vem do template, e é o que a maioria esquece
+
+- [ ] Times `leads` e `devs` com **Write** neste repositório (`Visible`, não `Secret`)
+- [ ] `PROTECT-MAIN` já cobre a `main` sozinho, por ser ruleset da organização — **confirme** com `gh api repos/<owner>/<repo>/rules/branches/main`
+- [ ] Ruleset do repositório com os jobs do `ci.yml` como status check obrigatório, **sem bypass**
+- [ ] `gh api repos/<owner>/<repo>/codeowners/errors` volta `[]`
+- [ ] Merge: só squash, auto-merge ligado, Update branch ligado, head branch apagada no merge
+
 **Uma vez, na raiz**
 
 - [ ] `pnpm-workspace.yaml` com `apps/*` e `packages/*`
@@ -152,6 +189,7 @@ Comece pelo [template de monorepo](../templates/monorepo/) — ele já traz a ra
 - [ ] `.husky/pre-commit` (lint-staged) e `pre-push` (`turbo run typecheck --affected`)
 - [ ] `README.md` mapa
 - [ ] `AGENTS.md` + `CLAUDE.md` ponteiro
+- [ ] `.github/CODEOWNERS`
 - [ ] `dependabot.yml`
 - [ ] Os arquivos de deploy, se a aplicação vai para a VM ([passo a passo](../engineering/deploy.md#aplicação-nova-passo-a-passo))
 
