@@ -9,16 +9,22 @@ continua valendo inteiro.
 
 > [!IMPORTANT]
 > Este padrão prescreve **só o que o nosso plano do GitHub sustenta**. Não há
-> homologação, não há registry e não há branch protection. A página anterior de
-> CI/CD foi deletada justamente por prescrever recursos que não temos: se você for
-> acrescentar algo aqui, confira primeiro que dá para ligar.
+> homologação e não há registry. A página anterior de CI/CD foi deletada
+> justamente por prescrever recursos que não temos: se você for acrescentar algo
+> aqui, confira primeiro que dá para ligar.
+>
+> Dois limites que só aparecem quando você tenta, e voltam **HTTP 422**: no plano
+> **Team**, em repositório privado, environment **não** aceita `required
+> reviewers` nem `wait timer` (só `branch policy`, que limita o ref e não o ator),
+> e secret scanning esbarra em `lock on metered usage`. Pior: o environment é
+> criado mesmo assim, **sem a regra** — parece um portão e não é.
 
 ## Como funciona
 
 ```
 branch → commits → PR para a main
                      └─ CI no GitHub: lint · typecheck · build · contrato · testes
-                          └─ verde? o sênior revisa e mergeia (na janela)
+                          └─ o sênior revisa; verde + aprovado, o AUTOR mergeia
                                └─ push na main dispara o deploy no runner da VM
                                     └─ build → CVE → migrate → up -d → health
                                          └─ health falhou? reverte a imagem sozinho
@@ -28,7 +34,7 @@ Duas peças, e nada além delas:
 
 | Onde | Quem roda | O que faz |
 |---|---|---|
-| **CI** (`ci.yml`) | runner **hospedado** do GitHub | Verifica o PR. Não bloqueia o merge |
+| **CI** (`ci.yml`) | runner **hospedado** do GitHub | Verifica o PR, e **bloqueia** o merge |
 | **Deploy** (`deploy.yml`) | runner **self-hosted**, na VM | Chama o `scripts/deploy.sh` do repositório. 25 linhas |
 
 O **pipeline é o `scripts/deploy.sh`** que vive dentro de cada repositório. Não há
@@ -43,9 +49,13 @@ topo são tudo que muda entre aplicações.
 > própria era maior que o de copiar. Quando o modelo mudar, copie de novo — e
 > `diff` entre as aplicações, de vez em quando, é rotina de manutenção.
 
-**O CI não impede o merge.** Branch protection não está no nosso plano, então o
-verde é sinal para quem revisa. **Não mergear com o CI vermelho é acordo do
-time**, igual ao resto da [proteção da `main`](git-and-github.md#proteção-da-main).
+**O CI impede o merge.** Os jobs do `ci.yml` entram como status check obrigatório
+num ruleset **do próprio repositório**, separado do `PROTECT-MAIN` da organização
+e **sem bypass** — logo vale inclusive para o gestor. Deixou de ser acordo do
+time: é o botão cinza. Ver [proteção da `main`](git-and-github.md#o-ci-vira-status-check-obrigatório).
+
+⚠️ O check exigido é a **string exata** do `name:` do job. Renomear um job solta a
+guarda sem erro em lugar nenhum — o check passa a nunca reportar.
 
 E porque merge dispara deploy, a
 [janela de deploy](deploy-and-incidents.md#janelas) passa a se aplicar ao **botão
@@ -375,7 +385,8 @@ Escrito porque dívida que não está escrita vira folclore:
 |---|---|
 | a divergência entre as cópias do script começar a doer | volta à mesa centralizar o pipeline — agora com o script maduro e o custo conhecido dos dois lados |
 | entrar registry e um segundo ambiente | o gatilho passa a **promover imagem validada**, e a homologação vem com ele |
-| o plano incluir branch protection | o CI vira status check obrigatório, e o acordo deixa de ser a única coisa que sustenta a `main` |
+| o `evaluate` de emergência virar rotina | pôr o ruleset do CI em `evaluate` para mergear no vermelho é a válvula; se for usada toda semana, o problema é o CI estar lento demais para hotfix, não a regra |
+| o plano passar de Team | environment com required reviewer deixa de dar 422, e "quem mergeia" e "quem sobe" voltam a ser decisões separadas |
 | o pico de build atrapalhar quem usa o sistema | buildar em outra máquina e carregar a imagem, antes de voltar o gatilho para manual |
 | entrar a segunda aplicação que precise de TLS | só um processo escuta a 443: o proxy sai do compose de uma aplicação e vira **borda compartilhada**, com rede externa e um alias de rede por app (dois serviços chamados `web` na mesma rede fazem o proxy distribuir tráfego entre sistemas diferentes, em silêncio) |
 

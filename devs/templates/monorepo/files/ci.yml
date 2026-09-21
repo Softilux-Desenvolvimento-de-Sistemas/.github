@@ -2,9 +2,13 @@
 #
 #   branch → PR → **este workflow** → review → merge → deploy
 #
-# Ele não BLOQUEIA o merge: branch protection não está no nosso plano do GitHub.
-# Ele é o sinal para quem revisa — e a regra de não mergear com o CI vermelho é
-# acordo do time, igual ao resto da proteção da `main`.
+# Ele BLOQUEIA o merge: o `name:` de cada job abaixo entra como status check
+# obrigatório num ruleset DESTE repositório, sem bypass — vale inclusive para o
+# gestor. Criar esse ruleset é passo do checklist de repositório novo; enquanto
+# ele não existir, o verde aqui é só sinal.
+#
+# O check exigido é a string EXATA do `name:`. Renomear um job solta a guarda sem
+# erro em lugar nenhum: o check passa a nunca reportar, e o PR não merge nunca.
 #
 # Roda em runner HOSPEDADO, não na VM, de propósito: suíte que cria e DROPA
 # banco não pode rodar perto da máquina de produção.

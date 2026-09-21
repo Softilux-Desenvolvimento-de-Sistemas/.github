@@ -58,7 +58,7 @@ Se você é o buddy: reserve ~1h/dia da sua primeira semana com essa pessoa. Iss
 
 **Posso perguntar isso?** Sim. A regra dos 45 minutos vale desde o primeiro dia, e para você vale ainda mais.
 
-**Vou quebrar alguma coisa?** Você não tem acesso de escrita direto em `main` nem em produção. Erre à vontade em branch.
+**Vou quebrar alguma coisa?** Você não tem acesso de escrita direto em `main` nem em produção — e isso é configuração, não confiança: o GitHub recusa o push, e nada entra sem PR aprovado. Erre à vontade em branch.
 
 **Quanto tempo até eu ser produtivo?** Não é medido. Espera-se que você entregue coisas pequenas logo no começo e comece a pegar tarefa normal quando o ambiente e o fluxo já estiverem naturais.
 

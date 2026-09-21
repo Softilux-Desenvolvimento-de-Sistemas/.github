@@ -26,7 +26,7 @@ Existem dois tipos de segredo, e cada um tem um lugar só:
 | O quê | Onde fica |
 |---|---|
 | **Variável de aplicação** — `DATABASE_URL`, chave de API, token de serviço | No `.env` do projeto, na sua máquina. Nunca versionado |
-| **Senha de ferramenta** — Planio, VPN, painel, banco de homologação | No **Obsidian**, no seu vault pessoal, na sua máquina |
+| **Senha de ferramenta** — Planio, VPN, painel | No **Obsidian**, no seu vault pessoal, na sua máquina |
 
 **Regras invioláveis:**
 
@@ -71,7 +71,13 @@ Funciona porque não diz não, registra a demanda e move a decisão de prioridad
 - Seu usuário deve ter nome real e foto — review anônimo é ruim de ler.
 - Quem revisa PR de um produto são os sêniors daquele projeto ([Code review](../engineering/code-review.md)).
 
-**Ninguém tem push direto em `main`. Inclusive o gestor.** Tudo entra por PR aprovado.
+**Ninguém tem push direto em `main`. Inclusive o gestor.** Isso deixou de ser acordo: o ruleset `PROTECT-MAIN` da organização recusa o push, e recusa o do gestor também — o bypass dele vale mergeando PR, nunca empurrando ([Git e GitHub](../engineering/git-and-github.md#proteção-da-main)).
+
+### Seu acesso vem de um time, não da organização
+
+Entrar na organização **não** dá acesso a repositório nenhum: a permissão base é `No permission`. Quem dá acesso é o time — você entra em `devs`, e o time recebe `Write` repositório a repositório.
+
+Duas consequências práticas: **repositório novo não te concede acesso sozinho**, e se um repo "sumiu" da sua lista é isso. Fale com o responsável do setor.
 
 ## Ambientes
 

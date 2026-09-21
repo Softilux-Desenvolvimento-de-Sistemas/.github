@@ -62,6 +62,7 @@ Serve aos dois casos, e a diferença está no que você pede:
 | `dockerignore` | `.dockerignore` | — |
 | `husky/pre-commit` | `.husky/pre-commit` | `lint-staged`. Hook **só na raiz** |
 | `husky/pre-push` | `.husky/pre-push` | `typecheck --affected` |
+| `CODEOWNERS` | `.github/CODEOWNERS` | Troque `@<org>/leads` pelo time real, e confira que ele tem **Write** neste repo |
 | `dependabot.yml` | `.github/dependabot.yml` | — |
 | `ci.yml` | `.github/workflows/ci.yml` | Biome numa invocação da raiz, nunca `turbo run lint` |
 | `docker-compose.yml` | `docker-compose.yml` | Na raiz. `name:` fixo e healthcheck em todo serviço |
@@ -101,8 +102,16 @@ https://raw.githubusercontent.com/Softilux-Desenvolvimento-de-Sistemas/.github/m
    - `ci.yml`: **apague o job `contract`** se ainda não há artefato gerado.
    - `docker-compose.yml`: as imagens da stack.
    - `.claude/rules/generated-files.md`: se não há arquivo gerado, apague.
+   - `.github/CODEOWNERS`: troque `@<org>/leads` pelo time real. ⚠️ Deixar o
+     placeholder é pior que não ter o arquivo — `PROTECT-MAIN` exige review de
+     code owner, e um time inexistente não satisfaz ninguém. Prove com
+     `gh api repos/<owner>/<repo>/codeowners/errors`, que tem que voltar `[]`.
 7. **`pnpm install`.** É ele que grava os hooks, pelo `prepare: husky`.
 8. **Rode o gate.**
+9. **Configure o GitHub** — não sai de arquivo nenhum, e é o passo que mais se
+   esquece: times com `Write`, o ruleset do CI deste repositório e as opções de
+   merge. A lista está no
+   [checklist de repositório novo](../../workflow/repo-standards.md#checklist-de-repositório-novo).
 
 ## O gate
 
