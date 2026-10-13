@@ -44,7 +44,7 @@ O histórico vive nesta tabela, atualizada no fim de cada sprint:
 
 | # | Nome | Período | Objetivo | Resultado | Nomeada por |
 |---|---|---|---|---|---|
-| — | _As sprints ainda não começaram_ | | | | |
+| **001** | VOYAGER | 13/10 - 28/10 | Implementação completa do ILUX DESK em produção | _(Em andamento)_ | Renan Rosa Schlemper |
 
 > [!NOTE]
 > **A série começa na primeira sprint.** A `001` é nomeada no planning de abertura e a linha entra aqui no mesmo dia. Enquanto a tabela estiver assim, é porque o ciclo de sprints ainda não foi iniciado — não porque alguém esqueceu de preencher.
