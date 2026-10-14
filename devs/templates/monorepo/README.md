@@ -129,7 +129,8 @@ eles passam sem fazer nada, e isso não é sinal de nada.
 
 | O quê | Onde está | Por quê não aqui |
 |---|---|---|
-| `deploy.yml`, `scripts/deploy.sh`, `docker-compose-prod.yml`, `Caddyfile`, `.env.prod.example`, `deploy-checklist.md` | [Deploy](../../engineering/deploy.md#aplicação-nova-passo-a-passo) | São quatro arquivos com passo a passo próprio, e o script tem as constantes dele no topo, feitas para a cópia |
+| `deploy.yml`, `scripts/deploy.sh`, `docker-compose-prod.yml`, `.env.prod.example`, `deploy-checklist.md` | [Deploy](../../engineering/deploy.md#aplicação-nova-passo-a-passo) | São quatro arquivos com passo a passo próprio, e o script tem as constantes dele no topo, feitas para a cópia |
+| O proxy (Caddy) e o certificado | Repositório `edge`, um arquivo por site | A borda é da VM, não da aplicação: o repositório só entra na rede `edge` ([o contrato](../../engineering/deploy.md#o-contrato-do-compose)) |
 | O esqueleto do `AGENTS.md` | [agents-template.md](../agents-template.md) | Uma segunda cópia divergiria da primeira |
 | O `0000-template.md` de ADR | [adr-template.md](../adr-template.md) | Idem — dois modelos de ADR é um a mais |
 | Os apps | — | `apps/` nasce vazio. O que vai dentro é [Padrão de repositório](../../workflow/repo-standards.md#em-cada-app-monorepo) |

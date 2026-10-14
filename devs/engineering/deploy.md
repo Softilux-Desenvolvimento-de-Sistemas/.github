@@ -133,16 +133,55 @@ sudo install -d -o deploy -g deploy -m 755 /srv/.deploy
 > árvore, e o deploy seguinte recusa subir de árvore suja — o primeiro funcionava
 > e o segundo falhava.
 
-**6. A chave do `deploy`**, sem passphrase (o `git pull` roda sem terminal):
+**6. Uma chave do `deploy` por repositório**, sem passphrase (o `git pull` roda
+sem terminal):
 
 ```bash
 sudo -iu deploy
-ssh-keygen -t ed25519 -C "deploy@prd-apps-1" -N ""
-cat ~/.ssh/id_ed25519.pub
+ssh-keygen -t ed25519 -N "" -C "deploy@prd-apps-1:<repo>" -f ~/.ssh/id_ed25519_<repo>
+cat ~/.ssh/id_ed25519_<repo>.pub
 ```
 
-Essa pública entra em cada repositório como **Deploy key**, em Settings → Deploy
-keys. **Sem** marcar "Allow write access": o deploy só faz `pull`.
+Essa pública entra **naquele** repositório como **Deploy key**, em Settings →
+Deploy keys. **Sem** marcar "Allow write access": o deploy só faz `pull`.
+
+> [!WARNING]
+> **O GitHub recusa a mesma chave pública em dois repositórios** ("Key is already
+> in use"). Cada repositório que a VM clona tem a sua, e o clone diz qual usar —
+> o `-c` fica gravado no repositório, então os `git pull` seguintes já usam a
+> chave certa:
+>
+> ```bash
+> git clone -c core.sshCommand="ssh -i /home/deploy/.ssh/id_ed25519_<repo> -o IdentitiesOnly=yes" \
+>   git@github.com:<org>/<repo>.git
+> ```
+
+**7. A borda, uma vez por VM.** Só um processo escuta a 443, e ele não é de
+nenhuma aplicação: é o repositório `edge` da organização, clonado em `/srv/edge`.
+Um Caddy que emite e renova os certificados sozinho, com **um arquivo por
+aplicação** em `conf/sites/`, e uma rede Docker externa, `edge`, onde a borda e o
+serviço público de cada aplicação se encontram.
+
+```bash
+sudo -iu deploy
+docker network create edge
+cd /srv && git clone -c core.sshCommand="ssh -i /home/deploy/.ssh/id_ed25519_edge -o IdentitiesOnly=yes" \
+  git@github.com:<org>/edge.git edge
+cd /srv/edge
+cp .env.example .env && chmod 600 .env    # ACME_EMAIL: quem o Let's Encrypt avisa
+docker compose up -d
+```
+
+> [!IMPORTANT]
+> A borda é **ponto único de todas as aplicações da VM**. Site novo ou alterado é
+> `caddy reload`, que não derruba ninguém e recusa configuração inválida mantendo
+> a anterior. Recriar o container dela (`up -d` depois de mudar o compose, ou
+> trocar a imagem) derruba **todos** os sites por alguns segundos — é trabalho de
+> janela. E **nunca** `docker network rm edge` nem `docker network prune`.
+>
+> O README do `edge` tem o resto: como acrescentar um site, o diagnóstico de
+> `502`, e a migração de 2026, quando o Caddy saiu de dentro da primeira
+> aplicação (o porquê está na ADR 0008 do `softilux`).
 
 ---
 
@@ -158,9 +197,9 @@ dig +short <dominio>    # tem que devolver o IP da VM
 ```
 
 > [!WARNING]
-> Isto vem **primeiro** porque o certificado é emitido na subida, e cada falha de
-> emissão consome uma das **5 tentativas semanais** que o Let's Encrypt dá por
-> domínio.
+> Isto vem **primeiro** porque a borda pede o certificado assim que lê o site da
+> aplicação (passo 7), e cada falha de emissão consome uma das **5 tentativas
+> semanais** que o Let's Encrypt dá por domínio.
 
 ### 2. Os quatro arquivos no repositório
 
@@ -200,10 +239,14 @@ quase tudo isso e diz o que falta.
 ```bash
 sudo mkdir -p /srv/<app> && sudo chown deploy:deploy /srv/<app>
 sudo -iu deploy
-cd /srv/<app> && git clone <repo> .
+cd /srv/<app>
+git clone -c core.sshCommand="ssh -i /home/deploy/.ssh/id_ed25519_<repo> -o IdentitiesOnly=yes" \
+  git@github.com:<org>/<repo>.git .
 cp .env.prod.example .env.prod && chmod 600 .env.prod   # o deploy RECUSA sem isto
 nano .env.prod
 ```
+
+A chave é a do passo 6 da VM, uma por repositório.
 
 Gere segredo com `openssl rand -hex 32`. Variável nova entra no `.example` **no
 mesmo PR** que a cria, e é preenchida na VM **antes** do merge — merge é deploy,
@@ -258,7 +301,37 @@ Tudo por Actions → **deploy** → *Run workflow*:
 3. **`mode: deploy`**, campo de SHA vazio — sobe o HEAD. É o mais lento de todos:
    constrói do zero.
 
-### 7. Conferir à mão, e ensaiar o rollback
+### 7. O site na borda
+
+PR no repositório `edge` com `conf/sites/<app>.caddy`, apontando para o **nome do
+serviço na rede `edge`** ([o contrato](#o-contrato-do-compose)):
+
+```
+<dominio> {
+	reverse_proxy <app>-web:3000
+
+	import security-headers
+	import json-log
+}
+```
+
+O CI do `edge` confere a formatação (`caddy fmt`, com TAB) e se a configuração
+carrega (`caddy validate`). Depois do merge, na VM:
+
+```bash
+sudo -iu deploy
+cd /srv/edge
+git pull --ff-only
+docker compose exec caddy caddy reload --config /etc/caddy/Caddyfile
+```
+
+O `reload` não derruba nenhum site, e nenhuma outra aplicação é tocada.
+
+> [!TIP]
+> O DNS ainda não aponta? O arquivo pode entrar com o bloco **comentado**: a borda
+> o ignora e não pede certificado. Quando o DNS apontar, outro PR tira os `#`.
+
+### 8. Conferir à mão, e ensaiar o rollback
 
 Pipeline verde não é conferência: siga o `deploy-checklist.md`, que o deploy
 imprime no resumo do job.
@@ -282,7 +355,8 @@ serviço com MySQL.
 | Migration em serviço one-shot (`restart: "no"`), com os serviços de aplicação em `depends_on: service_completed_successfully` | Migration no entrypoint com duas réplicas = duas migrações ao mesmo tempo |
 | Migration **idempotente e serializável** | O `up -d` pode disparar o serviço de migration outra vez. `prisma migrate deploy` toma advisory lock; `typeorm migration:run` **não** — aí a trava é trabalho do repositório |
 | `HEALTHCHECK` em todo serviço citado em `HEALTH_SERVICES` | É o que o deploy consulta para decidir se reverte |
-| Nenhuma porta publicada | Porta publicada numa aplicação é a API dela exposta sem TLS, ao lado das outras. Hoje o deploy **avisa**; a intenção é virar erro |
+| Nenhuma porta publicada | Só a borda publica 80 e 443. Porta publicada numa aplicação é a API dela exposta sem TLS, ao lado das outras. Hoje o deploy **avisa**; a intenção é virar erro. Para testar de dentro da VM, no máximo `127.0.0.1:<porta>:<porta>` |
+| O serviço público na rede externa `edge`, com nome `<app>-<serviço>` | É por ela que a borda chega na aplicação, e o arquivo do site aponta para esse nome. Use um alias de rede (`aliases: [minha-app-web]`) ou o próprio nome do serviço, **nunca** `web` ou `api` puros: o nome de um serviço vale em toda rede em que ele entra, e dois `api` na `edge` fazem o Docker distribuir o tráfego entre sistemas diferentes — inclusive o interno de uma aplicação que chama `http://api:3333` —, em silêncio |
 | `mem_limit` e rotação de log em todo serviço | **Recurso compartilhado:** aplicação sem teto de memória derruba as vizinhas num pico; sem rotação, enche o disco de todas |
 | Nenhum segredo em `build.args` | `build.args` fica no `docker history` da imagem para sempre |
 
@@ -301,7 +375,7 @@ O que é seu:
 |---|---|---|
 | **Semanal, 2 min** | O runner está *online* (Settings → Actions → Runners)? O que está no ar é o HEAD da `main`? | **Runner parado é falha silenciosa:** o push acontece, o job enfileira, produção fica uma versão atrás e nada avisa |
 | **Mensal** | `df -h`; **ensaiar um rollback**; olhar os PRs do Dependabot | Plano de rollback testado, não imaginado |
-| **Trimestral** | Bumpar a base das imagens; `apt upgrade` + reboot da VM e **conferir que o runner subiu**; `diff` do `scripts/deploy.sh` entre as aplicações | A varredura de CVE é do momento do build: vulnerabilidade publicada depois só aparece no próximo deploy |
+| **Trimestral** | Bumpar a base das imagens; atualizar a imagem da borda (`docker compose pull && docker compose up -d` em `/srv/edge`, **na janela**: derruba todos os sites por segundos); `apt upgrade` + reboot da VM e **conferir que o runner subiu**; `diff` do `scripts/deploy.sh` entre as aplicações | A varredura de CVE é do momento do build: vulnerabilidade publicada depois só aparece no próximo deploy |
 | **Antes de migration destrutiva** | Backup **verificado** — alguém tem que saber restaurar | Migration destrutiva não passa pelo pipeline: janela combinada, à mão |
 
 > [!CAUTION]
@@ -378,6 +452,10 @@ Escrito porque dívida que não está escrita vira folclore:
   disco. VM reconstruída = zero rollback.
 - **Uma cópia do script por repositório vai divergir.** O antídoto é `diff`, e ele
   é rotina de manutenção, não automação.
+- **A borda é ponto único de todas as aplicações.** Configuração errada o `reload`
+  recusa, mas o container dela caído derruba todos os sites da VM juntos.
+- **Nome na rede `edge` é regra escrita, não imposta.** Nada impede uma aplicação
+  de entrar nela com um serviço chamado `api`; quem pega é o review.
 
 ## Quando revisitar
 
@@ -388,7 +466,8 @@ Escrito porque dívida que não está escrita vira folclore:
 | o `evaluate` de emergência virar rotina | pôr o ruleset do CI em `evaluate` para mergear no vermelho é a válvula; se for usada toda semana, o problema é o CI estar lento demais para hotfix, não a regra |
 | o plano passar de Team | environment com required reviewer deixa de dar 422, e "quem mergeia" e "quem sobe" voltam a ser decisões separadas |
 | o pico de build atrapalhar quem usa o sistema | buildar em outra máquina e carregar a imagem, antes de voltar o gatilho para manual |
-| entrar a segunda aplicação que precise de TLS | só um processo escuta a 443: o proxy sai do compose de uma aplicação e vira **borda compartilhada**, com rede externa e um alias de rede por app (dois serviços chamados `web` na mesma rede fazem o proxy distribuir tráfego entre sistemas diferentes, em silêncio) |
+| as aplicações da VM passarem de umas dez, ou site novo virar rotina semanal | proxy configurado por *labels* no compose de cada aplicação (Traefik, caddy-docker-proxy) volta à mesa — com um proxy de socket filtrado no meio, porque o socket do Docker montado no proxy é controle da VM inteira, onde roda produção |
+| entrar uma segunda VM | a borda deixa de ser da máquina, e o que fica na frente das duas é outra decisão |
 
 ---
 
