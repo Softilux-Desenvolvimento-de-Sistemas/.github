@@ -191,7 +191,7 @@ Comece pelo [template de monorepo](../templates/monorepo/) — ele já traz a ra
 - [ ] `AGENTS.md` + `CLAUDE.md` ponteiro
 - [ ] `.github/CODEOWNERS`
 - [ ] `dependabot.yml`
-- [ ] Os arquivos de deploy, se a aplicação vai para a VM ([passo a passo](../engineering/deploy.md#aplicação-nova-passo-a-passo))
+- [ ] Os arquivos de deploy, se a aplicação vai para a VM ([passo a passo](../engineering/deploy.md#aplicação-nova-passo-a-passo)): a deploy key própria, o serviço público na rede `edge` com nome `<app>-<serviço>` e o site no repositório `edge`
 
 **Por app**
 
