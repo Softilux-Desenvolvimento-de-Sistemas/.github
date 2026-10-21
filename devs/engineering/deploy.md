@@ -181,7 +181,7 @@ docker compose up -d
 >
 > O README do `edge` tem o resto: como acrescentar um site, o diagnóstico de
 > `502`, e a migração de 2026, quando o Caddy saiu de dentro da primeira
-> aplicação (o porquê está na ADR 0008 do `softilux`).
+> aplicação (o porquê está na ADR 0008 do `ilux-desk`).
 
 ---
 

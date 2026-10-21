@@ -97,7 +97,7 @@ do que um curto.
 
 **Passou de ~400 linhas, alguma coisa ali é skill, é ADR, é README ou é backlog.**
 
-O número não é arbitrário. No monorepo `softilux`, o guia do front tinha **3.991
+O número não é arbitrário. No monorepo `ilux-desk`, o guia do front tinha **3.991
 linhas**; depois de tirar o que era design system, console de atendimento e
 backlog, sobraram **646** — e nada de essencial se perdeu. A diferença era material
 de referência que se pagava em toda conversa.
