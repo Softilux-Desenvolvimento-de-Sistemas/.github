@@ -141,7 +141,7 @@ mesmo num repositório que nunca vai para a VM.
 
 ## Fonte e sincronização
 
-Extraído do monorepo `softilux`, commit `756b0b1`, despersonalizado.
+Extraído do monorepo `ilux-desk`, commit `756b0b1`, despersonalizado.
 
 Quando o padrão muda lá, **o PR que muda atualiza os dois lados**. Não há CI
 aqui que confira isso, e cópia sem dono é cópia que diverge — se você encontrou
