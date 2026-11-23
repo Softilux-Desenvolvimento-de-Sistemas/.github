@@ -70,7 +70,7 @@ Depois de SEV1/SEV2, use o formato de [postmortem](../engineering/deploy-and-inc
 ## Registro
 
 ```markdown
-# Retro — SPRINT - <NOME> - <número> — <data>
+# Retro — SPRINT/<número> - <NOME> — <data>
 
 **Facilitador:**
 **Presentes:**

@@ -19,9 +19,9 @@ passo a passo de aplicação nova — está em [Deploy](deploy.md).
 A regra não é superstição: é ter gente acordada e disponível quando o problema aparecer. Ninguém quer descobrir o bug no sábado de manhã.
 
 > [!IMPORTANT]
-> **Merge é deploy.** Push na branch principal dispara a subida sozinho ([Deploy](deploy.md)), então a janela acima se aplica ao **botão de merge**. Não existe "mergeia agora, sobe depois": PR aprovado na sexta às 17h espera segunda.
+> **Merge não é deploy.** Produção sobe quando alguém do grupo `deployers` entra na VM pela VPN e roda `deploy --<app>` ([Deploy](deploy.md)). A janela acima vale para **esse comando**: PR mergeado na sexta às 17h fica na `main` e sobe na segunda.
 >
-> Quem faz o merge é o autor — logo, a janela é responsabilidade de quem aperta o botão.
+> Quem roda o `deploy` é responsável pela janela e pela conferência depois de subir.
 
 ### Atualização que exige parar a produção
 

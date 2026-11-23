@@ -129,15 +129,14 @@ eles passam sem fazer nada, e isso não é sinal de nada.
 
 | O quê | Onde está | Por quê não aqui |
 |---|---|---|
-| `deploy.yml`, `scripts/deploy.sh`, `docker-compose-prod.yml`, `.env.prod.example`, `deploy-checklist.md` | [Deploy](../../engineering/deploy.md#aplicação-nova-passo-a-passo) | São quatro arquivos com passo a passo próprio, e o script tem as constantes dele no topo, feitas para a cópia |
+| `docker-compose-prod.yml`, `.env.prod.example`, `deploy-checklist.md` | [Deploy](../../engineering/deploy.md#aplicação-nova-passo-a-passo) | Dependem da aplicação e têm passo a passo próprio. O pipeline de deploy não mora em repositório de aplicação: é o `deploy` central da VM, do repositório `ops` |
 | O proxy (Caddy) e o certificado | Repositório `edge`, um arquivo por site | A borda é da VM, não da aplicação: o repositório só entra na rede `edge` ([o contrato](../../engineering/deploy.md#o-contrato-do-compose)) |
 | O esqueleto do `AGENTS.md` | [agents-template.md](../agents-template.md) | Uma segunda cópia divergiria da primeira |
 | O `0000-template.md` de ADR | [adr-template.md](../adr-template.md) | Idem — dois modelos de ADR é um a mais |
 | Os apps | — | `apps/` nasce vazio. O que vai dentro é [Padrão de repositório](../../workflow/repo-standards.md#em-cada-app-monorepo) |
 
-O `ci.yml` é a exceção da primeira linha: ele é um dos **quatro** arquivos que a
-página de deploy conta, e o modelo dele está aqui porque a checagem do PR existe
-mesmo num repositório que nunca vai para a VM.
+O `ci.yml` está aqui porque a checagem do PR existe mesmo num repositório que
+nunca vai para a VM.
 
 ## Fonte e sincronização
 

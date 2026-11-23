@@ -23,9 +23,7 @@ Quando isso não acontece, o README está incompleto — não o dev.
 | `.github/CODEOWNERS` | Quem o GitHub exige como revisor ([CODEOWNERS](#codeowners)) |
 | `.github/dependabot.yml` | Atualização de dependência |
 | `.github/workflows/ci.yml` | A checagem do PR ([Deploy](../engineering/deploy.md)) |
-| `.github/workflows/deploy.yml` | O gatilho do deploy — 25 linhas, chama o script |
-| `scripts/deploy.sh` | **O pipeline.** As 4 constantes do topo são o que muda entre apps |
-| `deploy-checklist.md` | A conferência à mão depois de subir |
+| `deploy-checklist.md` | A conferência à mão depois de subir: o `deploy` da VM o imprime no fim |
 | `docker-compose-prod.yml` | Os serviços de produção ([contrato](../engineering/deploy.md#o-contrato-do-compose)) |
 | `.vscode/extensions.json` | Extensões recomendadas |
 | `docs/adr/` | [Decisões do workspace](../templates/adr-template.md) |
@@ -132,7 +130,6 @@ Num monorepo com senioridade separada por app, dá para abrir por caminho. **O �
 /apps/api/		@<org>/api-seniors
 /apps/web/		@<org>/web-seniors
 /.github/		@<org>/leads
-/scripts/deploy.sh	@<org>/leads
 ```
 
 > [!WARNING]
