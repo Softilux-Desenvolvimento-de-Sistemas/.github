@@ -6,7 +6,7 @@ A ideia é simples: sprint com nome próprio é sprint que o time lembra. "A Art
 
 ## Como funciona
 
-**Formato:** `SPRINT - ARTEMIS - 001`
+**Formato:** `SPRINT/001 - ARTEMIS`
 
 **Numeração sequencial e contínua.** `001`, `002`… A série nunca reinicia, nem por ano nem por produto. Quem entra no meio entra de onde o time está — e isso já conta a história de quem chegou quando.
 
@@ -38,13 +38,47 @@ Boas regras para o objetivo:
 
 > Sprint que falhou por fator externo — cliente sumiu, ambiente caiu, urgência do chefe engoliu a semana — não é falha do time. O gestor tem obrigação de dizer isso em voz alta na review.
 
+## Nota geral
+
+No fim de cada sprint, na review, a gestão dá uma **nota geral de 0 a 10** à
+sprint, com duas ou três linhas dizendo por quê. A nota é **da sprint, do time**,
+e não de uma pessoa: não entra em avaliação individual nem vira ranking.
+
+O que pesa, nesta ordem:
+
+1. **O objetivo saiu?** Cumprida, renegociada ou não cumprida, como na tabela acima.
+2. **Chegou ao cliente?** Tarefa finalizada que não está em produção conta pela metade.
+3. **Qualidade da primeira entrega:** quantas passaram de primeira na revisão de
+   código, e quanto tempo as devolvidas levaram para voltar.
+4. **Previsibilidade:** horas apontadas ÷ estimadas, e quanto do planejado saiu.
+5. **Higiene do processo:** PR dentro do limite de 400 linhas, prints, docs e
+   skills em dia, CI verde de verdade.
+
+Os números vêm do Planio (a versão da sprint) e do relatório de fim de sprint.
+
 ## Registro
 
 O histórico vive nesta tabela, atualizada no fim de cada sprint:
 
-| # | Nome | Período | Objetivo | Resultado | Nomeada por |
-|---|---|---|---|---|---|
-| **001** | VOYAGER | 13/10 - 28/10 | Implementação completa do ILUX DESK em produção | _(Em andamento)_ | Renan Rosa Schlemper |
+| # | Nome | Período | Objetivo | Resultado | Nota | Nomeada por |
+|---|---|---|---|---|---|---|
+| **001** | VOYAGER | 13/10 – 28/10/2026 | Implementação completa do ILUX DESK em produção | Cumprida, com ressalvas | **5,0** | Renan Rosa Schlemper |
+| **002** | APOLO | 04/11 – 20/11/2026 | Implementação e correções finais para deixar o ILUX DESK pronto para produção: resolver as pendências de Suporte e de Implantação, específicas de cada setor, levantadas na reunião pós-VOYAGER | Cumprida | **7,5** | Renan Rosa Schlemper |
 
-> [!NOTE]
-> **A série começa na primeira sprint.** A `001` é nomeada no planning de abertura e a linha entra aqui no mesmo dia. Enquanto a tabela estiver assim, é porque o ciclo de sprints ainda não foi iniciado — não porque alguém esqueceu de preencher.
+### SPRINT/001 - VOYAGER — 5,0
+
+O DESK foi para produção, mas a sprint fechou com 12 de 17 tarefas finalizadas,
+4 de volta para ajuste e 1 não iniciada. Só 5 das 16 entregas passaram de primeira
+na revisão (31%), e "Finalizada" queria dizer "na `main`", não "no ar". As duas
+tarefas do Google (#15916 e #15933) ficaram abertas. O ponto bom foi a estimativa:
+74 h estimadas e 74 h apontadas (1,00×), contra 2,7× na sprint de teste.
+
+### SPRINT/002 - APOLO — 7,5
+
+Escopo entregue: 17 de 18 tarefas finalizadas e **todas em produção** no fim da
+sprint (a única não iniciada, #16027, entrou no dia 17/11). A primeira entrega
+melhorou para 11 de 17 de primeira (65%), e as devolvidas voltaram corrigidas em
+até dois dias, pelos próprios devs. O que segurou a nota: a estimativa piorou
+(1,30× nas tarefas estimadas), vários PRs passaram de mil linhas contra um limite
+de 400, e um defeito de segurança na importação da Biblioteca (#16011, conteúdo
+interno podendo ir para pasta pública) só foi pego na revisão.

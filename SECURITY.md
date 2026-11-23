@@ -63,8 +63,8 @@ Isso não é motivo de bronca. Erro é insumo, não culpa — errar em silêncio
 | Autorização checada, não só autenticação | [Code review](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/code-review.md) |
 | Nunca vazar stack trace ou erro de banco para o cliente | Mensagem genérica para o cliente, detalhe só no log |
 | `permissions: contents: read` no topo do workflow | O padrão do GitHub é permissivo demais; declare o mínimo |
-| Action de terceiro fixada por SHA, e nenhuma no workflow que roda na VM | Tag é mutável: `@v1` pode virar outro código sem você saber. O workflow de deploy não usa action nenhuma |
-| Self-hosted runner **só** em repositório privado, e um por repositório | Em repo público, PR de fork roda workflow — e workflow é comando executado na máquina de produção |
+| Action de terceiro fixada por SHA | Tag é mutável: `@v1` pode virar outro código sem você saber |
+| **Nenhum** runner self-hosted na VM de produção, e nenhum workflow que alcance a VM | O deploy é `deploy --<app>`, rodado por gente do grupo `deployers`, pela VPN ([Deploy](https://github.com/Softilux-Desenvolvimento-de-Sistemas/.github/blob/main/devs/engineering/deploy.md)). Runner na VM é comando do GitHub executado na máquina de produção |
 | Dependabot ativo, atualização entra como `chore` na sprint | Ele não enxerga versão fixada em `catalog:` — essa é manual |
 
 **Segurança é item de code review**, não uma fase separada no fim. Está na lista do que se olha em todo PR.
